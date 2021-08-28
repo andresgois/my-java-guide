@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Curso_programacao/src"/>
+	<classpathentry kind="src" path="exer01/src"/>
+	<classpathentry kind="src" path="exer02/src"/>
+	<classpathentry kind="src" path="exer03/src"/>
+	<classpathentry kind="src" path="Exer04/src"/>
+	<classpathentry kind="src" path="farmacia/src/main/java"/>
+	<classpathentry kind="src" path="farmacia/src/test/java"/>
+	<classpathentry kind="lib" path="farmacia/WebContent/WEB-INF/lib/all-themes-1.0.10.jar"/>
+	<classpathentry kind="lib" path="farmacia/WebContent/WEB-INF/lib/jsf-api-2.2.20.jar"/>
+	<classpathentry kind="lib" path="farmacia/WebContent/WEB-INF/lib/jsf-impl-2.2.20.jar"/>
+	<classpathentry kind="lib" path="farmacia/WebContent/WEB-INF/lib/junit-4.13.jar"/>
+	<classpathentry kind="lib" path="farmacia/WebContent/WEB-INF/lib/mariadb-java-client-2.5.0.jar"/>
+	<classpathentry kind="lib" path="farmacia/WebContent/WEB-INF/lib/primefaces-7.0.jar"/>
+	<classpathentry kind="output" path="Curso_programacao/bin"/>
+</classpath>

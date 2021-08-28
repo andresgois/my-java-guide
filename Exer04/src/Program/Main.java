@@ -16,7 +16,7 @@ public class Main {
 		
 		//Exercicio01(sc);
 		//Exercicio02(sc);
-		Exercicio03(sc);
+		//Exercicio03(sc);
 		
 	}
 	

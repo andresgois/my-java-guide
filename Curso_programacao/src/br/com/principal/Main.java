@@ -4,6 +4,8 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import entities.Product;
+import entities.ProductComConstructor;
+import util.CurrencyConverter;
 
 public class Main {
 
@@ -19,30 +21,19 @@ public class Main {
 		int x = sc.nextInt();
 		testeFor(x);
 		funcaoesString();*/
-		Product p = new Product();
-		System.out.println("Enter product data:");
-		System.out.print("Name:  ");
-		p.name = sc.next();
-		System.out.print("Price:  ");
-		p.price = sc.nextDouble();
-		System.out.print("Quantity in stock:  ");
-		p.quantity = sc.nextInt();
+		//Employee(sc);
+		// CLASSE COM MÈTODOS ESTÁTICOS
+		/*double x = calculator(50);
+		System.out.printf("Valor:\t%.2f\n",x);
 		
-		//System.out.printf("Product data: %s, $ %.2f, %d units, Total: $ %.2f",p.name,p.price,p.quantity, p.TotalValueInStock());
-		System.out.println("Product data: "+p);
-		System.out.println("\nEnter the number of products to be added in stock: ");
-		int num = sc.nextInt();
-		p.AddProducts(num);
-		//System.out.printf("\nUpdate data: %s, $ %.2f, %d units, Total: $ %.2f",p.name,p.price,p.quantity, p.TotalValueInStock());
-		System.out.println("Update data: "+p);
+		System.out.print("What is the dollar price? ");
+		double dollar = sc.nextDouble();
+		System.out.print("How many dollars will be bought? ");
+		int qtd = sc.nextInt();
+		double v = CurrencyConverter.converte(dollar, qtd);
+		System.out.printf("Amount to be paid in reais = %.2f\n",v);*/
 		
-		System.out.println("\nEnter the number of products to be removed from stock: ");
-		num = sc.nextInt();
-		p.RemoveProducts(num);
-		//System.out.printf("\nUpdate data: %s, $ %.2f, %d units, Total: $ %.2f",p.name,p.price,p.quantity, p.TotalValueInStock());
-		System.out.println("Update data: "+p);
-		
-		sc.close();
+		EmployeeComConstructor(sc);
 	}
 	
 	public static int testeFor(int x) {
@@ -78,4 +69,71 @@ public class Main {
 		System.out.println(vet[2]);
 	}
 
+	public static void Employee(Scanner sc) {
+		Product p = new Product();
+		System.out.println("Enter product data:");
+		System.out.print("Name:  ");
+		p.name = sc.next();
+		System.out.print("Price:  ");
+		p.price = sc.nextDouble();
+		System.out.print("Quantity in stock:  ");
+		p.quantity = sc.nextInt();
+		
+		//System.out.printf("Product data: %s, $ %.2f, %d units, Total: $ %.2f",p.name,p.price,p.quantity, p.TotalValueInStock());
+		System.out.println("Product data: "+p);
+		System.out.println("\nEnter the number of products to be added in stock: ");
+		int num = sc.nextInt();
+		p.AddProducts(num);
+		//System.out.printf("\nUpdate data: %s, $ %.2f, %d units, Total: $ %.2f",p.name,p.price,p.quantity, p.TotalValueInStock());
+		System.out.println("Update data: "+p);
+		
+		System.out.println("\nEnter the number of products to be removed from stock: ");
+		num = sc.nextInt();
+		p.RemoveProducts(num);
+		//System.out.printf("\nUpdate data: %s, $ %.2f, %d units, Total: $ %.2f",p.name,p.price,p.quantity, p.TotalValueInStock());
+		System.out.println("Update data: "+p);
+		
+		sc.close();
+	}
+	
+	public static double calculator(int x) {
+		return x*x;
+	}
+	
+	public static void EmployeeComConstructor(Scanner sc) {
+		
+		//ProductComConstructor p = new ProductComConstructor();
+		
+		System.out.println("Enter product data:");
+		System.out.print("Name:  ");
+		String name = sc.next();
+		System.out.print("Price:  ");
+		double price = sc.nextDouble();
+		System.out.print("Quantity in stock:  ");
+		int quantity = sc.nextInt();
+		
+		ProductComConstructor p = new ProductComConstructor(name, price, quantity);
+		
+		p.setName("Computer");
+		System.out.println("Update product name: "+p.getName());
+		p.setPrice(1200.00);
+		System.out.println("Update product price: "+p.getPrice());
+		
+		//System.out.printf("Product data: %s, $ %.2f, %d units, Total: $ %.2f",p.name,p.price,p.quantity, p.TotalValueInStock());
+		System.out.println("Product data: "+p);
+		System.out.println("\nEnter the number of products to be added in stock: ");
+		int num = sc.nextInt();
+		p.AddProducts(num);
+		//System.out.printf("\nUpdate data: %s, $ %.2f, %d units, Total: $ %.2f",p.name,p.price,p.quantity, p.TotalValueInStock());
+		System.out.println("Update data: "+p);
+		
+		System.out.println("\nEnter the number of products to be removed from stock: ");
+		num = sc.nextInt();
+		p.RemoveProducts(num);
+		//System.out.printf("\nUpdate data: %s, $ %.2f, %d units, Total: $ %.2f",p.name,p.price,p.quantity, p.TotalValueInStock());
+		System.out.println("Update data: "+p);
+		
+		sc.close();
+	}
+	
 }
