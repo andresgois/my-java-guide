@@ -14,7 +14,7 @@ public class Account {
 	public Account(String numberAccount, String name, double initialDeposit) {
 		this.numberAccount = numberAccount;
 		this.holder = name;
-		this.balance = initialDeposit;
+		deposit(initialDeposit);
 	}
 	
 	public void deposit(double amount) {
@@ -22,7 +22,7 @@ public class Account {
 	}
 	
 	public void withdraw(double amount) {
-		this.balance = this.balance - amount - 5.00; 
+		this.balance -= (amount + 5.0); 
 	}
 
 	public String getNumberAccount() {

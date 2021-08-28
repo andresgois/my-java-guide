@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import entities.Product;
 import entities.ProductComConstructor;
-import util.CurrencyConverter;
+import entities.ProductVector;
+import entities.Rooms;
+
 
 public class Main {
 
@@ -33,7 +35,10 @@ public class Main {
 		double v = CurrencyConverter.converte(dollar, qtd);
 		System.out.printf("Amount to be paid in reais = %.2f\n",v);*/
 		
-		EmployeeComConstructor(sc);
+		//EmployeeComConstructor(sc);
+		//vetores(sc);
+		//ProductVetc(sc);
+		room(sc);
 	}
 	
 	public static int testeFor(int x) {
@@ -135,5 +140,78 @@ public class Main {
 		
 		sc.close();
 	}
+	
+	public static void vetores(Scanner sc) {
+				
+		System.out.println("Quantidade de pessoas");
+		int n = sc.nextInt();
+		double[] altura = new double[n];
+		double m = 0.0;
+		
+		
+		System.out.println("Digite as alturas");
+		for(int i=0; i< n; i++) {
+			altura[i] = sc.nextDouble();
+			m += altura[i];
+		}
+		System.out.printf("Média de altura = %.2f",(m/n));
+		
+		
+	}
+
+	public static void ProductVetc(Scanner sc) {
+		double sum = 0.0;
+		System.out.print("qunatity of products: ");
+		int n = sc.nextInt();
+		
+		ProductVector[] products = new ProductVector[n];
+		
+		for(int i = 0; i < products.length; i++) {
+			System.out.println("Enter Product #"+(i+1));
+			sc.nextLine();
+			System.out.print("Name: ");
+			String name = sc.next();
+			System.out.print("Price: ");
+			double price = sc.nextDouble();
+			
+			products[i] = new ProductVector(name, price);
+			sum += products[i].getPrice();
+		}
+		
+		
+		System.out.printf("Total = %.2f",sum);
+	}
+
+	public static void room(Scanner sc) {
+		
+		Rooms[] room = new Rooms[10];
+		
+		System.out.print("Number of students: ");
+		int n = sc.nextInt();
+		
+		for(int i=0; i< n;i++) {
+			sc.nextLine();
+			System.out.println("Enter name, email and room number of students:");
+			System.out.println("Rent #"+(i+1));
+			System.out.print("Name: ");
+			String name = sc.next();
+			System.out.print("Email: ");
+			String email = sc.next();
+			System.out.print("Room: ");
+			int q = sc.nextInt();
+			System.out.println();
+			room[q] = new Rooms(name, email);
+		}
+		
+		System.out.println("Busy rooms");
+		int x = 0;
+		
+		while(x < 10) {
+			if(room[x] != null) System.out.println(x+": "+room[x]);
+			x++;
+		}
+		
+	}
+	
 	
 }
