@@ -1,8 +1,14 @@
 package br.com.principal;
 
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
+import entities.Employee;
 import entities.Product;
 import entities.ProductComConstructor;
 import entities.ProductVector;
@@ -38,7 +44,9 @@ public class Main {
 		//EmployeeComConstructor(sc);
 		//vetores(sc);
 		//ProductVetc(sc);
-		room(sc);
+		//room(sc);
+		//WorkList(sc);
+		ExerLista(sc);
 	}
 	
 	public static int testeFor(int x) {
@@ -213,5 +221,111 @@ public class Main {
 		
 	}
 	
+	public static void WorkList(Scanner sc) {
+		
+		List<String> list = new ArrayList<String>();
+		
+		list.add("Andre");
+		list.add("Joaquim");
+		list.add("Elias");
+		list.add("Marcia");
+		list.add("Augusto");
+		list.add("Anderson");
+		
+		list.remove("Elias");		//list.remove(0);
+		for(String x : list) {
+			System.out.println(x);
+		}
+		
+		System.out.println("Tamanho do list:  "+list.size());
+		// remover por predicado
+		list.removeIf(x -> x.charAt(0) == 'M');
+		
+		System.out.println();
+		for(String x : list) {
+			System.out.println(x);
+		}
+		
+		// Retorno 1 se encontrar
+		System.out.println("IndexOf de Joaquim: "+ list.indexOf("Joaquim"));
+		System.out.println("IndexOf de Lucas: "+ list.indexOf("Lucas"));
+		
+		// vai para uma nova lista que inicia com a letra A
+		List<String> result = list.stream().filter(x -> x.charAt(0) == 'A').collect(Collectors.toList());
+		
+		System.out.println();
+		for(String x : result) {
+			System.out.println(x);
+		}
+		
+		// Encontrar elemento da lista que atenda a um certo predicado
+		String name = list.stream().filter(x -> x.charAt(0) == 'A').findFirst().orElse(null);
+		System.out.println("\nPrimeiro elemento é:  "+name);
+		
+	}
+
+	public static void ExerLista(Scanner sc) {
+		List<Employee> emp = new ArrayList<Employee>();
+		
+		System.out.print("Digite o número de funcionanrio: ");
+		int n = sc.nextInt();
+		
+		for(int i = 0; i< n;i++) {
+			System.out.print("Id: ");
+			int id = sc.nextInt();
+			
+			while(hasId(emp, id)) {
+				System.out.print("Id already taken! Try again: ");
+				id = sc.nextInt();
+			}
+			
+			System.out.print("Name: ");
+			String nome = sc.next();
+			sc.nextLine();
+			System.out.print("Salary: ");
+			double salary = sc.nextDouble();
+			
+			emp.add(new Employee(id, nome, salary));
+			System.out.println();
+		}
+		
+		System.out.print("Enter the employee id that will have salary increase : ");
+		int idFunc = sc.nextInt();
+		
+		/**
+		 * FindFirst retorno o primeiro elemento com base no filtro, se não encontrar retorna null
+		 * stream() -> tipo especial do java que aceita 
+		 */
+		//Employee list = emp.stream().filter(x -> x.getId() == idFunc).findFirst().orElse(null);
+		Integer pos = position(emp, idFunc);
+		if(pos == null) {
+			System.out.println("This id does not exist!");
+		}else {
+			System.out.print("Enter the percentage: ");
+			double perc = sc.nextDouble();
+			emp.get(pos).incrementSalary(perc);
+			//list.incrementSalary(perc);
+		}
+
+		System.out.println("\nList of employees:");
+		for(Employee employee: emp) {
+			System.out.println(employee);
+		}
+	}
 	
+	// Utilizando no Exercício ExerLista
+	public static Integer position(List<Employee> emp, int id) {
+		for(int i=0; i< emp.size(); i++) {
+			if(emp.get(i).getId() == id) {
+				return i;
+			}
+		}
+		return null;
+	}
+	
+	// Utilizando no Exercício ExerLista
+	public static boolean hasId(List<Employee> emp, int id) {
+		Employee list = emp.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+		return list != null;
+	}
 }
