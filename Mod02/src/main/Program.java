@@ -20,7 +20,8 @@ public class Program {
 		//matrizExer(sc);
 		
 		//datas();
-		usandoCalendar();
+		//usandoCalendar();
+		PraticaData(sc);
 	}
 	
 	public static void matriz(Scanner sc) {
@@ -163,4 +164,25 @@ public class Program {
 		System.out.println("Minutes: "+minutes);
 		System.out.println("Month: "+month);
 	}
+
+	public static void PraticaData(Scanner sc) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar cal = Calendar.getInstance();
+		
+		System.out.println("Digite com a data no formato: Dia/Mês/Ano");
+		String data = sc.next();
+		Date novaData = sdf.parse(data);
+		
+		System.out.println(sdf.format(novaData));
+		System.out.println(sdf.format(novaData).getClass());
+		System.out.print("\nDigite dias a serem acrescentados: ");
+		int dia = sc.nextInt();
+		
+		cal.setTime(novaData);
+		cal.add(Calendar.DAY_OF_MONTH, dia);
+		novaData = cal.getTime();
+		
+		System.out.println("\nNova data com acrescimo: "+sdf.format(novaData));
+	}
+
 }
