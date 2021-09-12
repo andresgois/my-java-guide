@@ -169,7 +169,7 @@ public class Main {
 
 	public static void ProductVetc(Scanner sc) {
 		double sum = 0.0;
-		System.out.print("qunatity of products: ");
+		System.out.print("quantity of products: ");
 		int n = sc.nextInt();
 		
 		ProductVector[] products = new ProductVector[n];

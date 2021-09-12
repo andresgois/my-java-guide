@@ -20,8 +20,8 @@ public class Program {
 		//matrizExer(sc);
 		
 		//datas();
-		//usandoCalendar();
-		PraticaData(sc);
+		usandoCalendar();
+		//PraticaData(sc);
 	}
 	
 	public static void matriz(Scanner sc) {
