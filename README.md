@@ -239,9 +239,38 @@ public static void usandoCalendar(){
 
 ![Exemplo03](./img_readme/ex03_order.png)
 
+## CAPÍTULO 13 - HERANÇA E POLIMORFISMO
 
+### Herança
+- É um tipo de associação que permite que uma classe herde todos dados e comportamentos de outra
+	- Definições importantes
+	- Vantagens
+	- Reuso
+	- Polimorfismo
+	- Sintaxe
+	- class A extends B
+- Diagrama herança
+![Diagrama herança](./img_readme/diagrama_heranca01.png)
 
-
+	- Relação "é-um"
+		- Conta empresarial ela é uma conta só que com algo mais
+	- Generalização/especialização
+		- Classe Conta é Generalização, quanto que a Conta Empresarial é uma especialização
+	- Superclasse (classe base) / subclasse (classe derivada)
+	- Herança / extensão
+	- Herança é uma associação entre classes (e não entre objetos)
+	
+#### Upcasting e Downcasting
+- Upcasting
+	- Casting da subclasse para superclasse
+	- Uso comum: polimorfismo
+- Downcasting
+	- Casting da superclasse para subclasse
+	- Palavra instanceof
+	- Uso comum: métodos que recebem parâmetros genéricos (ex: Equals)
+- Upcasting e Downcasting Exemplo
+![Upcasting e Downcasting](./img_readme/diagrama_heranca02.png)
+### Polimorfismo
 
 
 

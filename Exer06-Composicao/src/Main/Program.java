@@ -25,28 +25,25 @@ public class Program {
 		//Date d = new Date();		
 		//System.out.println(d); 						//Sat Sep 11 09:46:21 BRT 2021
 		//System.out.println(sdf.format(new Date()));	//11/09/2021 09:46:21
-		Client client = new Client();
 
 		// Adding a client
 		System.out.println("Enter cliente data");
 		System.out.print("Name: ");
 		String name = sc.nextLine();
 		System.out.print("E-mail: ");
-		String email = sc.nextLine();
+		String email = sc.next();
 		System.out.print("Birth date (DD/MM/YYYY): ");
 		Date birthDate = sdf.parse(sc.next());
 		
-		client = new Client(name, email, birthDate);
+		Client client = new Client(name, email, birthDate);
 		
 
 		System.out.println("Enter order data:");		
 		System.out.print("Status: ");
-		String status = sc.next();
-		sc.nextLine();
-		
+		OrderStatus status = OrderStatus.valueOf(sc.next());
+				
 
-		List<OrderItem> item = new ArrayList<>();
-		OrderItem it;
+		Order order = new Order(new Date(), status, client);
 		
 		System.out.print("How many items to this order? ");
 		int n = sc.nextInt();
@@ -56,19 +53,21 @@ public class Program {
 			String productName = sc.next();
 			System.out.print("Product price: ");
 			double price = sc.nextDouble();
+			
+			Product product = new Product(productName, price);
+			
 			System.out.print("Quantity: ");
 			int quantity = sc.nextInt();
 			
-			it = new OrderItem(quantity, price,new Product(productName, price));			
-			item.add(it);
+			OrderItem orderItem = new OrderItem(quantity, price, product);			
+			order.addItem(orderItem);
 			
 		}
-		Date moment = new Date();
-		Order order = new Order(moment, OrderStatus.valueOf(status), client, item);
-		
-		
+		System.out.println();
 		System.out.println("ORDER SUMMARY:");
 		System.out.println(order);
+		
+		sc.close();
 	}
 
 }

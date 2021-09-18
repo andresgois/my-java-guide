@@ -8,37 +8,34 @@ import java.util.List;
 import Entities.enums.OrderStatus;
 
 public class Order {
-
-	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	private static SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
 	private Date moment;
-	private OrderStatus staus;
+	private OrderStatus status;
 	
-	Client clients = new Client();
-	List<OrderItem> orderItem = new ArrayList<>();
+	private Client client = new Client();
+	private List<OrderItem> items = new ArrayList<>();
 	
 	public Order() {}
 
-	public Order(Date moment, OrderStatus staus, Client clients, List<OrderItem> orderItem) {
+	public Order(Date moment, OrderStatus status, Client client) {
 		this.moment = moment;
-		this.staus = staus;
-		this.clients = clients;
-		this.orderItem = orderItem;
+		this.status = status;
+		this.client = client;
 	}
 
 	public void addItem(OrderItem item) {
-		orderItem.add(item);
+		items.add(item);
 	}
 	
 	public void removeItem(OrderItem item) {
-		orderItem.remove(item);
+		items.remove(item);
 	}
 	
 	public double total() {
 		double total = 0.0;
 		
-		for(OrderItem item: orderItem) {
+		for(OrderItem item: items) {
 			total += item.subTotal();
 		}
 		
@@ -53,12 +50,21 @@ public class Order {
 		this.moment = moment;
 	}
 
-	public OrderStatus getStaus() {
-		return staus;
+	public OrderStatus getStatus() {
+		return status;
 	}
 
-	public void setStaus(OrderStatus staus) {
-		this.staus = staus;
+	public void setStatus(OrderStatus staus) {
+		this.status = staus;
+	}
+
+	
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	@Override
@@ -66,22 +72,15 @@ public class Order {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("\nOrder moment: ");
-		sb.append(sdf2.format(moment)+"\n");
+		sb.append(sdf.format(moment)+"\n");
 		sb.append("Order status: ");
-		sb.append(getStaus()+"\n");
+		sb.append(status+"\n");
 		sb.append("Client: ");
-		sb.append(clients.getName()+" ");
-		sb.append("("+sdf.format(clients.getBirthDate())+") ");
-		sb.append(clients.getEmail()+"\n");		
+		sb.append(client+" ");	
 		sb.append("Order items: \n");
 		
-		for(int i=0; i<orderItem.size(); i++) {
-			sb.append(orderItem.get(i).products.getName()+", $ ");
-			sb.append(String.format("%.2f", orderItem.get(i).products.getPrice())+", ");
-			sb.append("Quantity: ");
-			sb.append(orderItem.get(i).getQuantity()+", ");
-			sb.append("Subtotal: $ ");
-			sb.append(String.format("%.2f", orderItem.get(i).subTotal())+"\n");
+		for(OrderItem item: items) {
+			sb.append(item+"\n");
 		}
 		sb.append("Total Price: $ ");
 		sb.append(String.format("%.2f", total()));
