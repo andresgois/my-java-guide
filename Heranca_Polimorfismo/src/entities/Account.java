@@ -35,11 +35,11 @@ public class Account {
 	}	
 	
 	public void withDraw(Double amount) {
-		this.balance -= amount;
+		this.balance -= amount + 5;
 	}
 	
 	public void deposit(Double amount) {
-		this.balance -= amount;
+		this.balance += amount;
 	}
 	
 	
