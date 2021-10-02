@@ -117,8 +117,6 @@ lo garbage collector
 	- Tamanho fixo
 	- Dificuldade para se realizar inserções e deleções
 
-...
-
 ## CAPÍTULO 11 - Trabalhando com datas
 - Projeto
 	- Mod02
@@ -269,7 +267,9 @@ public static void usandoCalendar(){
 	- Palavra instanceof
 	- Uso comum: métodos que recebem parâmetros genéricos (ex: Equals)
 - Upcasting e Downcasting Exemplo
+
 ![Upcasting e Downcasting](./img_readme/diagrama_heranca02.png)
+
 - Projeto Heranca_Polimorfismo
 	- Program
 ```
@@ -305,7 +305,9 @@ if (acc3 instanceof SavingsAccount) {
 	- É fortemente recomendável usar a anotação @Override em um método sobrescrito
 		- Facilita a leitura e compreensão do código
 		- Avisamos ao compilador (boa prática)
+
 ![Exemplo 03](./img_readme/diagrama_heranca03.png)		
+
 - Suponha que a operação de saque possui uma taxa no valor de 5.0. Entretanto, se a conta for do tipo poupança, esta taxa não deve ser cobrada.
 - Como resolver isso?
 - Resposta: sobrescrevendo o método withdraw na subclasse SavingsAccount
@@ -378,6 +380,7 @@ y.withdraw(50.0);
 - O pagamento dos funcionários corresponde ao valor da hora multiplicado pelas horas trabalhadas, sendo que os funcionários terceirizados ainda recebem um bônus correspondente a 110% de sua despesa adicional.
 - Fazer um programa para ler os dados de N funcionários (N fornecido pelo usuário) e armazená-los em uma lista. Depois de ler todos os dados, mostrar nome e pagamento de cada funcionário na mesma ordem em que foram digitados.
 - Construa o programa conforme projeto ao lado. Veja exemplo na próxima página.
+
 ![Exemplo02](./img_readme/ex02_poli.png)
 
 ##### Exercício de Fixação
@@ -388,6 +391,7 @@ y.withdraw(50.0);
 - Todo produto possui nome e preço. Produtos importados possuem uma taxa de alfândega, e produtos usados possuem data de fabricação. Estes dados específicos devem ser acrescentados na etiqueta de preço conforme exemplo (próxima página). Para produtos importados, a taxa e alfândega deve ser acrescentada ao preço final do produto.
 
 ![Exemplo03](./img_readme/ex03_poli.png)
+
 ![Exemplo04](./img_readme/ex04_poli.png)
 
 
@@ -409,18 +413,24 @@ Questionamento
 - Demo: suponha que você queira:
 	- Totalizar o saldo de todas as contas.
 	- Depositar 10.00 em todas as contas
+##### Exercício de Fixação
+- Projeto Products
+	- Heranca_Polimorfismo
 	
 ### Métodos abstratos
 - São métodos que não possuem implementação.
 - Métodos precisam ser abstratos quando a classe é genérica demais para conter sua implementação.
 - Se uma classe possuir pelo menos um método abstrato, então esta classe também é abstrata.
 - Notação UML: itálico
+
 ![Exemplo06](./img_readme/ex06_poli.png)
+
 ![Exemplo07](./img_readme/ex07_poli.png)
 
-##### Exercício de Fixação
+##### Exercício de Resolvido
 - Projeto Products
-	- Exer09-polimorfismo
+	- Heranca_Polimorfismo
+	
 ##### Resumo
 - Fazer um programa para ler os dados de N contribuintes (N fornecido pelo usuário), os quais podem ser pessoa física ou pessoa jurídica, e depois mostrar o valor do imposto pago por cada um, bem como o total de imposto arrecadado.
 - Os dados de pessoa física são: nome, renda anual e gastos com saúde. Os dados de pessoa jurídica são nome, renda anual e número de funcionários. As regras para cálculo de imposto são as seguintes:
@@ -429,4 +439,5 @@ fica: (50000 * 25%) - (2000 * 50%) = 11500.00
 - Pessoa jurídica: pessoas jurídicas pagam 16% de imposto. Porém, se a empresa possuir mais de 10 funcionários, ela paga 14% de imposto. Exemplo: uma empresa cuja renda foi 400000.00 e possui 25 funcionários, o imposto fica: 400000 * 14% = 56000.00
 
 ![Exemplo08](./img_readme/ex08_poli.png)
+
 ![Exemplo09](./img_readme/ex09_poli.png)
