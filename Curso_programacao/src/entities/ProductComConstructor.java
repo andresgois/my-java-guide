@@ -9,16 +9,17 @@ public class ProductComConstructor {
 	// Sobrecarga
 	public ProductComConstructor() {}
 	
+	public ProductComConstructor(String name, double price) {
+		this.name = name;
+		this.price = price;
+	}
+	
 	public ProductComConstructor(String name, double price, int quantity) {
 		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
 	}
-	
-	public ProductComConstructor(String name, double price) {
-		this.name = name;
-		this.price = price;
-	}
+		
 	
 	public String getName() {
 		return name;

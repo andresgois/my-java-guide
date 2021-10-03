@@ -5,6 +5,8 @@ public class Rooms {
 	private String name;
 	private String email;
 	
+	public Rooms() {}
+	
 	public Rooms(String name, String email) {
 		this.name = name;
 		this.email = email;

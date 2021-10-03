@@ -2,7 +2,6 @@ package br.com.principal;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -13,6 +12,8 @@ import entities.Product;
 import entities.ProductComConstructor;
 import entities.ProductVector;
 import entities.Rooms;
+
+
 
 
 public class Main {
@@ -265,7 +266,7 @@ public class Main {
 	}
 
 	public static void ExerLista(Scanner sc) {
-		List<Employee> emp = new ArrayList<Employee>();
+		List<Employee> emp = new ArrayList<>();
 		
 		System.out.print("Digite o número de funcionanrio: ");
 		int n = sc.nextInt();
