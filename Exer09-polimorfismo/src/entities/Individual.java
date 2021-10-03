@@ -5,7 +5,6 @@ public class Individual extends TaxPayer {
 	private Double healthExpenditures;
 	
 	
-	
 	public Individual() {
 		super();
 	}
@@ -23,8 +22,13 @@ public class Individual extends TaxPayer {
 
 	@Override
 	public Double tax() {
-		// TODO Auto-generated method stub
-		return null;
+		Double imp = 0.0;
+		if (getAnualIncome() < 20000.0) {
+			imp = getAnualIncome() * 0.15;
+		}else {
+			imp = (getAnualIncome() * 0.25) - (healthExpenditures * 0.50);
+		}
+		return imp;
 	}
 
 }
