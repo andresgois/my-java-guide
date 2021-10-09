@@ -78,6 +78,7 @@ public class Program {
 		}*/
 		
 		// FileWriter e BufferedWriter
+		/*
 		String[] lines = new String[] {"Good morning","Good afternoon","Good night"};
 		
 		String path = "C:\\Temp\\out.txt";
@@ -92,6 +93,36 @@ public class Program {
 		} catch(IOException e) {
 			System.out.println(e.getMessage());
 		}
+		*/
+		
+		// Manipulando pastas com File
+		Scanner sc2 = new Scanner(System.in);
+		
+		System.out.println("Enter a folder path: ");
+		String strPath = sc2.next();
+		
+		File path = new File(strPath);
+		
+		File[] folders = path.listFiles(File::isDirectory);
+		System.out.println("Folders");
+		for(File folder: folders) {
+			System.out.println(folder);
+		}
+		
+		System.out.println();
+		
+		File[] files = path.listFiles(File::isFile);
+		System.out.println("Files: ");
+		for(File file2: files) {
+			System.out.println(file2);
+		}
+		
+		System.out.println();
+		
+		boolean success = new File(strPath + "\\subdir").mkdir();
+		System.out.println("Directory created successfully: "+success);
+		
+		sc2.close();
 		
 	}
 
