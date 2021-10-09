@@ -96,7 +96,7 @@ public class Program {
 		*/
 		
 		// Manipulando pastas com File
-		Scanner sc2 = new Scanner(System.in);
+		/*Scanner sc2 = new Scanner(System.in);
 		
 		System.out.println("Enter a folder path: ");
 		String strPath = sc2.next();
@@ -122,7 +122,23 @@ public class Program {
 		boolean success = new File(strPath + "\\subdir").mkdir();
 		System.out.println("Directory created successfully: "+success);
 		
-		sc2.close();
+		sc2.close();*/
+		
+		
+		//Informações do caminho do arquivo
+		Scanner sc3 = new Scanner(System.in);
+
+		System.out.println("Enter a folder path: ");
+		String strPath2 = sc3.nextLine();
+
+		File path2 = new File(strPath2);
+		System.out.println("getPath: " 
+		+ path2.getPath());
+		System.out.println("getParent: " + path2.getParent());
+		System.out.println("getName: " + path2.getName());
+
+		sc3.close();
+		
 		
 	}
 
