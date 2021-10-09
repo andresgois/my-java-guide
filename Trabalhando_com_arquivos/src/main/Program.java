@@ -1,6 +1,9 @@
 package main;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Program {
@@ -10,7 +13,7 @@ public class Program {
 		File file = new File("C:\\Temp\\in.txt");
 		
 		// Scanner - Leitor de texto
-		
+		/*
 		Scanner sc = null;
 		try {
 			sc = new Scanner(file);
@@ -22,7 +25,43 @@ public class Program {
 			if(sc != null) {
 				sc.close();
 			}
-		}
+		}*/
+		
+		// FileReader e BufferReader
+		/*
+		BufferedReader bf = null;
+		FileReader fr = null;
+		
+		try {
+			fr = new FileReader(file);
+			bf = new BufferedReader(fr);
+			
+			String line = bf.readLine();
+			while(line != null) {
+				System.out.println(line);
+				line = bf.readLine();
+			}
+			
+		} catch (IOException e) {
+			// TODO: handle exception
+			System.out.println("Error: "+e.getMessage());
+		} finally {
+			try {
+				if(bf != null) {
+					bf.close();
+				}
+				if(fr != null) {
+					fr.close();
+				}
+			} catch (IOException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}*/
+		
+		
+		// Bloco try-with-resources
+		
 	}
 
 }
