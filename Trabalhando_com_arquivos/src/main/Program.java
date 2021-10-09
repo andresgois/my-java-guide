@@ -1,8 +1,10 @@
 package main;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -61,7 +63,7 @@ public class Program {
 		
 		
 		// Bloco try-with-resources
-	
+		/*
 		try (BufferedReader bf = new BufferedReader(new FileReader(file))) {
 
 			String line = bf.readLine();
@@ -73,7 +75,24 @@ public class Program {
 		} catch (IOException e) {
 			// TODO: handle exception
 			System.out.println("Error: "+e.getMessage());
+		}*/
+		
+		// FileWriter e BufferedWriter
+		String[] lines = new String[] {"Good morning","Good afternoon","Good night"};
+		
+		String path = "C:\\Temp\\out.txt";
+		
+		// Passando o true ele não cria um novo arquivo, mas sim adiciona ao final da linha os novos dados
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))){
+			
+			for(String line: lines) {
+				bw.write(line);;
+				bw.newLine();
+			}
+		} catch(IOException e) {
+			System.out.println(e.getMessage());
 		}
+		
 	}
 
 }
