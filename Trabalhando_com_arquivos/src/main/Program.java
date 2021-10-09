@@ -61,7 +61,19 @@ public class Program {
 		
 		
 		// Bloco try-with-resources
-		
+	
+		try (BufferedReader bf = new BufferedReader(new FileReader(file))) {
+
+			String line = bf.readLine();
+			while(line != null) {
+				System.out.println(line);
+				line = bf.readLine();
+			}
+			
+		} catch (IOException e) {
+			// TODO: handle exception
+			System.out.println("Error: "+e.getMessage());
+		}
 	}
 
 }
