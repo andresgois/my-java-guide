@@ -190,4 +190,4 @@ public class Program {
 
 - Projeto Exer11_trabalhandoComArquivos
 
-- ![Example](../img_readme/exer01_file.png)
+![Example](../img_readme/exer01_file.png)

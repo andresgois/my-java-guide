@@ -87,9 +87,10 @@ public class Program {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))){
 			
 			for(String line: lines) {
-				bw.write(line);;
+				bw.write(line);
 				bw.newLine();
 			}
+			
 		} catch(IOException e) {
 			System.out.println(e.getMessage());
 		}
