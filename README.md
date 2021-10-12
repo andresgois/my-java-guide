@@ -450,3 +450,304 @@ fica: (50000 * 25%) - (2000 * 50%) = 11500.00
 ## CAPÍTULO 16 - LENDO ARQUIVO TEXTO COM CLASSE FILE E SCANNER
 
 - [Trabalhando com arquivos](./Trabalhando_com_arquivos/Files.md)
+
+## CAPÍTULO 18 - INTERFACES
+- A partir do Java 8, interfaces podem ter "default methods" ou "defender methods"
+- Isso possui implicações conceituais e práticas, que serão discutidas mais à frente neste capítulo
+- Primeiro vamos trabalhar com a definição "clássica" de interfaces. Depois vamos acrescentar o conceito de default methods
+
+- Interface é um tipo que define um conjunto de operações que uma classe deve implementar.
+- A interface estabelece um **contrato** que a classe deve cumprir.
+```
+interface Shape {
+	double area();
+	double perimeter();
+}
+```
+- Pra quê interfaces?
+	- Para criar sistemas com baixo acoplamento e flexíveis.
+
+#### Problema exemplo
+- Uma locadora brasileira de carros cobra um valor por hora para locações de até 12 horas. Porém, se a duração da locação ultrapassar 12 horas, a locação será cobrada com base em um valor diário. Além do valor da locação, é acrescido no preço o valor do imposto conforme regras do país que, no caso do Brasil, é 20% para valores até 100.00, ou 15% para valores acima de 100.00. Fazer um programa que lê os dados da locação (modelo do carro, instante inicial e final da locação), bem como o valor por hora e o valor diário de locação. O programa deve então gerar a nota de pagamento (contendo valor da locação, valor do imposto e valor total do pagamento) e informar os dados na tela. Veja os exemplos.
+
+#### Example 1:
+
+![Exemplo 1](./img_readme/ex01_interface.png)
+
+```
+Calculations:
+Duration = (25/06/2018 14:40) - (25/06/2018 10:30) = 4:10 = 5 hours
+Basic payment = 5 * 10 = 50
+Tax = 50 * 20% = 50 * 0.2 = 10
+```
+
+![Exemplo 2](./img_readme/ex02_interface.png)
+
+![Exemplo 3](./img_readme/ex03_interface.png)
+
+![Exemplo 4](./img_readme/ex04_interface.png)
+
+![Exemplo 5](./img_readme/ex05_interface.png)
+
+![Exemplo 6](./img_readme/ex06_interface.png)
+
+## Inversão de controle, Injeção de dependência
+- Acoplamento forte
+- A classe RentalService conhece a dependência concreta
+- Se a classe concreta mudar, é preciso mudar a classe RentalService
+##### Service layer design (**no interface**)
+
+```
+class RentalService {
+	(...)
+	private BrazilTaxService taxService;
+```
+
+##### Service layer design
+- Acoplamento fraco
+- A classe RentalService não conhece a dependência concreta
+- Se a classe concreta mudar, a classe RentalService não muda nada
+
+```
+class RentalService {
+	(...)
+	private BrazilTaxService taxService;
+```
+
+![Exemplo 7](./img_readme/ex07_interface.png)
+
+#### Inversão de controle
+- Inversão de controle
+	- Padrão de desenvolvimento que consiste em retirar da classe aresponsabilidade de instanciar suas dependências.
+- Injeção de dependência
+	- É uma forma de realizar a inversão de controle: um componente externo instancia a dependência, que é então injetada no objeto "pai". Pode ser implementada de várias formas:
+		- Construtor
+		- Classe de instanciação (builder / factory)
+		- Container / framework
+
+
+##### Exercício de fixação
+- Uma empresa deseja automatizar o processamento de seus contratos. O processamento de um contrato consiste em gerar as parcelas a serem pagas para aquele contrato, com base no número de meses desejado.
+- A empresa utiliza um serviço de pagamento online para realizar o pagamento das parcelas. Os serviços de pagamento online tipicamente cobram um juro mensal, bem como uma taxa por pagamento. Por enquanto, o serviço contratado pela empresa é o do Paypal, que aplica juros simples de 1% a cada parcela, mais uma taxa de pagamento de 2%.
+- Fazer um programa para ler os dados de um contrato (número do contrato, data do contrato, e valor total do contrato). Em seguida, o programa deve ler o número de meses para parcelamento do contrato, e daí gerar os registros de parcelas a serem pagas (data e valor), sendo a primeira parcela a ser paga um mês após a data do contrato, a  segunda parcela dois meses após o contrato e assim por diante. Mostrar os dados das parcelas na tela.
+
+### Domain layer design (entities)
+
+![Exemplo 9](./img_readme/ex09_interface.png)
+
+### Service layer design
+
+![Exemplo 10](./img_readme/ex10_interface.png)
+
+## Herdar vs. cumprir contrato
+- Aspectos em comum entre herança e interfaces
+	- Relação é-um
+	- Generalização/especialização
+	- Polimorfismo
+
+![Exemplo 11](./img_readme/ex11_interface.png)
+
+- Diferença fundamental
+	- Herança => reuso
+	- Interface => contrato a ser cumprido
+- E se eu precisar implementar Shape como interface, porém também quiser definir uma estrutura comum reutilizável para todas figuras?
+
+![Exemplo 12](./img_readme/ex12_interface.png)
+
+- Outro exemplo
+
+![Exemplo 13](./img_readme/ex13_interface.png)
+
+### Herança múltipla e o problema do diamante
+- A herança múltipla pode gerar o problema do diamante: uma ambiguidade causada pela existência do mesmo método em mais de uma superclasse. Herança múltipla não é permitida na maioria das linguagens!
+
+![Exemplo 14](./img_readme/ex14_interface.png)
+- Porém, uma classe pode implementar mais de uma interface
+- **ATENÇÃO:**
+	- Isso NÃO é herança múltipla, pois NÃO HÁ REUSO na relação entre ComboDevice e as interfaces Scanner e Printer. ComboDevide não herda, mas sim implementa as interfaces (cumpre o contrato).
+
+### Interface Comparable
+```
+public interface Comparable<T> {
+	int compareTo (T o);
+}
+```
+
+##### Problema motivador
+ - Faça um programa para ler um arquivo contendo nomes de pessoas (um nome por linha), armazenando-os em uma lista. Depois, ordenar os dados dessa lista e mostra-los ordenadamente na tela. Nota: o caminho do arquivo pode ser informado "hardcode".
+
+	- Maria Brown
+	- Alex Green
+	- Bob Grey
+	- Anna White
+	- Alex Black
+	- Eduardo Rose
+	- Willian Red
+	- Marta Blue
+	- Alex Brown
+
+```
+package application;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+public class Program {
+	public static void main(String[] args) {
+
+		List<String> list = new ArrayList<>();
+		String path = "C:\\temp\\in.txt";
+
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+
+			String name = br.readLine();
+			while (name != null) {
+			list.add(name);
+			name = br.readLine();
+		}
+
+		Collections.sort(list);
+		for (String s : list) {
+			System.out.println(s);
+		}
+
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+}
+```
+
+##### Outro problema
+
+- Faça um programa para ler um arquivo contendo funcionários (nome e salário) no formato .csv, armazenando-os em uma lista. Depois, ordenar a lista por nome e mostrar o resultado na tela. Nota: o caminho do arquivo pode ser informado "hardcode".
+
+	- Maria Brown,4300.00
+	- Alex Green,3100.00
+	- Bob Grey,3100.00
+	- Anna White,3500.00
+	- Alex Black,2450.00
+	- Eduardo Rose,4390.00
+	- Willian Red,2900.00
+	- Marta Blue,6100.00
+	- Alex Brown,5000.00
+
+## Interface Comparable
+
+![Exemplo 15](./img_readme/ex15_interface.png)
+
+- **Method compareTo:**
+- **Parameters:**
+	- o - the object to be compared.
+- **Returns:**
+	- a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
+
+```
+package application;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import entities.Employee;
+public class Program {
+	public static void main(String[] args) {
+	List<Employee> list = new ArrayList<>();
+
+	String path = "C:\\temp\\in.txt";
+	try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+		String employeeCsv = br.readLine();
+		while (employeeCsv != null) {
+		String[] fields = employeeCsv.split(",");
+		list.add(new Employee(fields[0], Double.parseDouble(fields[1])));
+		employeeCsv = br.readLine();
+
+		}
+		Collections.sort(list);
+		for (Employee emp : list) {
+			System.out.println(emp.getName() + ", " + emp.getSalary());
+		}
+
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+}
+```
+
+```
+package entities;
+public class Employee implements Comparable<Employee> {
+	private String name;
+	private Double salary;
+
+	public Employee(String name, Double salary) {
+		this.name = name;
+		this.salary = salary;
+	}
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+	
+	@Override
+	public int compareTo(Employee other) {
+		return name.compareTo(other.getName());
+	}
+}
+```
+
+### Default methods (defender methods)
+- A partir do Java 8, interfaces podem conter métodos concretos.
+- A intenção básica é prover implementação padrão para métodos, de modo a evitar:
+	- 1) repetição de implementação em toda classe que implemente a interface
+	- 2) a necessidade de se criar classes abstratas para prover reuso da implementação
+- Outras vantagens:
+	- Manter a retrocompatibilidade com sistemas existentes
+	- Permitir que "interfaces funcionais" (que devem conter apenas um método) possam prover outras operações padrão reutilizáveis
+
+#### Problema exemplo
+- Fazer um programa para ler uma quantia e a duração em meses de um empréstimo. Informar o valor a ser pago depois de decorrido o prazo do empréstimo, conforme regras de juros do Brasil. A regra de cálculo de juros do Brasil é juro composto padrão de 2% ao mês.
+
+
+```
+Calculations: Payment = 200 * 1.02 * 1.02 * 1.02 = 200 * 1.023 = 212.2416
+Payment = amount * (1 + interestRate / 100)N
+```
+
+![Exemplo 16](./img_readme/ex16_interface.png)
+
+- What if there was another interest service from another country?
+
+![Exemplo 17](./img_readme/ex17_interface.png)
+
+```
+Calculations: Payment = 200 * 1.01 * 1.01 * 1.01 = 200 * 1.013 = 206.0602
+Payment = amount * (1 + interestRate / 100)N
+```
+
+![Exemplo 18](./img_readme/ex18_interface.png)
+
+### Considerações importantes
+	- Sim: agora as interfaces podem prover reuso
+	- Sim: agora temos uma forma de herança múltipla
+	- Mas o compilador reclama se houver mais de um método com a mesma assinatura, obrigando a sobrescreve-lo
+	- Interfaces ainda são bem diferentes de classes abstratas. Interfaces não possuem recursos tais como construtores e atributos.
+
+	
+
+- [Interfaces](./Trabalhando_com_arquivos/Interfaces.md)
