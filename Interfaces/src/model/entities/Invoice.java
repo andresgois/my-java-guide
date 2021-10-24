@@ -7,7 +7,6 @@ public class Invoice {
 
 	public Invoice() {}
 	
-
 	public Invoice(Double basicPayment, Double tax) {
 		this.basicPayment = basicPayment;
 		this.tax = tax;

@@ -14,7 +14,6 @@ import model.services.RentalService;
 public class Program {
 
 	public static void main(String[] args) throws ParseException {
-		// TODO Auto-generated method stub
 
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
