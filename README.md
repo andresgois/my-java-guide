@@ -48,117 +48,10 @@
 
 ## CAPÍTULO 10 - Memória, Arrays e Listas
 
-### Mémoria
-- Projeto
-	- Mod02
-	- Método
-- Tipos referência vs. tipos valor
-```
-Product p1, p2;
-p1 = new Product("TV", 900.00, 0);
-p2 = p1;
-```
-![Referência memória](./img_readme/referencia_memoria.png)
-- Tipos primitivos são tipos valor
-	- Tipos primitivos ficam na Stack
-```
-double x, y;
-x = 10;
-y = x;
-```
-![Tipos Primitvos](./img_readme/primitivos.png)
-- Quando alocamos (new) qualquer tipo estruturado (classe ou array), são atribuídos valores padrão os seus elementos
-	- números: 0
-	- boolean: false
-	- char: caractere código 0
-	- objeto: null
-		- p -> name=null, price=0.0, quantity=0
-#### Tipos referência vs. tipos valor
-
-|CLASSE |TIPO PRIMITIVO|
-| :---: | :----------: |
-|Vantagem: usufrui de todos recursos OO |Vantagem: é mais simples e mais performático|
-|Variáveis são ponteiros |Variáveis são caixas|
-|Objetos precisam ser instanciados usando new, ou apontar para um objeto já existente.| Não instancia. Uma vez declarados, estão prontos para uso.|
-|Aceita valor null |Não aceita valor null|
-|Y = X; "Y passa a apontar para onde X aponta"| Y = X; "Y recebe uma cópia de X"|
-|Objetos instanciados no heap |"Objetos" instanciados no stack|
-|Objetos não utilizados são desalocados em um momento próximo pelo garbage collector |"Objetos" são desalocados imediatamente quando seu escopo de execução é finalizado|
-
-#### Garbage collector
-- É um processo que automatiza o gerenciamento de memória de um programa em execução
-- O garbage collector monitora os objetos alocados dinamicamente pelo programa (no heap), desalocando aqueles que não estão mais sendo utilizados.
-- Desalocação por garbage collector
-```
-Product p1, p2;
-p1 = new Product("TV", 900.00, 0);
-p2 = new Product("Mouse", 30.00, 0);
-
-p1 = p2;
-```
-![Tipos Primitvos](./img_readme/desalocar_pelo_garbage_collector.png)
-
-- Desalocação por escopo
-	 - A variável só vai existir enquanto estiver no seu escopo
-#### Resumo
-- Objetos alocados dinamicamente, quando não possuem mais referência para eles, serão desalocados pe
-lo garbage collector 
-- Variáveis locais são desalocadas imediatamente assim que seu escopo local sai de execução
-
-### Vetores
-- Em programação, "vetor" é o nome dado a arranjos unidimensionais
-- Arranjo (array) é uma estrutura de dados:
-	- Homogênea (dados do mesmo tipo)
-	- Ordenada (elementos acessados por meio de posições)
-	- Alocada de uma vez só, em um bloco contíguo de memória
-- Vantagens:
-	- Acesso imediato aos elementos pela sua posição
-- Desvantagens:
-	- Tamanho fixo
-	- Dificuldade para se realizar inserções e deleções
-
+- [Memória, Arrays e Listas](./10_Memoria_arrays_listas/README.md)
 ## CAPÍTULO 11 - Trabalhando com datas
-- Projeto
-	- Mod02
-	- Método
-		- datas()
-- Um objeto Date internamente armazena:
-	- O número de milissegundos desde a meia noite do dia 1 de janeiro de 1970 GMT (UTC)
-	- GMT: Greenwich Mean Time (time zone)
-	- UTC: Coordinated Universal Time (time standard)
-- **SimpleDateFormat**
-	- [Documentação](https://docs.oracle.com/javase/10/docs/api/java/text/SimpleDateFormat.html)
-		- Define formatos para conversão entre Date e String
-		- dd/MM/yyyy -> 23/07/2018
-		- dd/MM/yyyy HH:mm:ss -> 23/07/2018 15:42:07
-- **Padrão ISO 8601 e classe Instant**
-	- Formato: yyyy-MM-ddTHH:mm:ssZ
-	- Exemplo: "2018-06-25T15:42:07Z"
-	- Date y3 = Date.from(Instant.parse("2018-06-25T15:42:07Z"));
-#### Manipulando uma data com Calendar
-- Somando uma unidade de tempo
-	- Método: usandoCalendar()
 
-```
-public static void usandoCalendar(){
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		Date d = Date.from(Instant.parse("2018-06-25T15:42:07Z"));
-		Calendar cal = Calendar.getInstance();
-	
-		cal.setTime(d);
-		cal.add(Calendar.HOUR_OF_DAY, 4);
-		d = cal.getTime();
-		int minutes = cal.get(Calendar.MINUTE);
-		int month = 1 + cal.get(Calendar.MONTH);
-		
-		System.out.println(sdf.format(d));							// 25/06/2018 12:42:07
-		System.out.println("Minutes: "+minutes);				// Minutes: 42
-		System.out.println("Month: "+month);						// Month: 6
-	}
-```
-
-<!-- ![Exemplo01](./img_readme/) -->
-
+- [Trabalhando com datas](./11_Topicos_especiais_data/README.md)
 ## CAPÍTULO 12 - Git e Github
 - **GIT** : é um sistema de versionamento: você controla as modificações de um projeto por meio de versões chamadas "commits".
 
@@ -450,6 +343,9 @@ fica: (50000 * 25%) - (2000 * 50%) = 11500.00
 ## CAPÍTULO 16 - LENDO ARQUIVO TEXTO COM CLASSE FILE E SCANNER
 
 - [Trabalhando com arquivos](./Trabalhando_com_arquivos/Files.md)
+## CAPÍTULO 17 - TRABALHANDO COM ARQUIVOS
+
+- [Trabalhando com arquivos](./17_Trabalhando_com_arquivos/README.MD)
 
 ## CAPÍTULO 18 - INTERFACES
 - A partir do Java 8, interfaces podem ter "default methods" ou "defender methods"
