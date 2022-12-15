@@ -12,14 +12,11 @@ public class Program {
     
     public static void main(String[] args) {
         // Instanciação
-        // Intsaciacao()
+        // Intsaciacao();
         // ConvertendoDataHoraGlobalParaLocal();
         // calculoComData();
+         teste();
         
-        String data = "202010"+"01";
-        //DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyyMMdd");
-        LocalDate d08 = LocalDate.parse(data, DateTimeFormatter.ofPattern("yyyyMMdd"));
-        System.out.println("Ano: "+d08.getYear()+" Mês: "+d08.getMonthValue());
     }
     
     public static void Intsaciacao() {
@@ -107,6 +104,7 @@ public class Program {
     }
     
     public static void ConvertendoDataHoraGlobalParaLocal() {
+        // precisa informar o timezone        
         LocalDate d04 = LocalDate.parse("2022-07-20");
         LocalDateTime d05 = LocalDateTime.parse("2022-07-20T01:30:26");
         Instant d06 = Instant.parse("2022-07-20T01:30:26Z");
@@ -156,7 +154,26 @@ public class Program {
         System.out.println("-7 dias Instant: " + pastWeekInstant);
         
         // Duração entre duas datas
-        Duration t1 = Duration.between(semanaAnterior, d04);
+        Duration t1 = Duration.between(proximaSemanaTime, d05);
         System.out.println("T1 dias: " + t1.toDays());
+        
+        // não da pra calcular diferença entre 2 localdate
+        //Duration t2 = Duration.between(semanaAnterior.atTime(0,0), d04.atTime(0,0));
+        Duration t2 = Duration.between(semanaAnterior.atStartOfDay(), d04.atStartOfDay());
+        System.out.println("T2 dias: " + t2.toDays());
+        
+        // instant
+        Duration t3 = Duration.between(pastWeekInstant, d06);
+        System.out.println("T3 dias: " + t3.toDays());
+    
+    }
+
+    public static void teste() {
+        Instant d06 = Instant.parse("2022-12-15T16:13:42.060Z");
+        LocalDateTime r1 = LocalDateTime.ofInstant(d06,ZoneId.systemDefault());
+        System.out.println(r1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        String agoraFormatado = r1.format(formatter);
+        System.out.println("LocalDateTime depois de formatar: " + agoraFormatado);
     }
 }
