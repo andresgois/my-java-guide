@@ -1,179 +1,87 @@
 package application;
 
-import java.time.Duration;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Program {
     
     public static void main(String[] args) {
-        // Instanciação
-        // Intsaciacao();
-        // ConvertendoDataHoraGlobalParaLocal();
-        // calculoComData();
-        //teste();
-        
+        System.out.println("(agora) ➞ Data-hora");
+        instanciandoDataDoAgora();
+        System.out.println("Texto ISO 8601 ➞ Data-hora");
+        textoIso8601();
+        System.out.println("Texto formato customizado ➞ Data-hora");
+        textoFormatoCustomizado();
     }
     // Java 8+
-    
-    // Java 7
-    
-    
-    public static void Intsaciacao() {
-        // (agora) ➞ Data//hora
-        LocalDate d01 = LocalDate.now();
+    public static void instanciandoDataDoAgora() {
+        //- (agora) ➞ Data-hora
+        System.out.println("========== LocalDate");
+        LocalDate d01 = LocalDate.now();                    // Saída: 2023-01-13
         System.out.println(d01);
         
-        // Texto ISO 8601 ➞ Data//hora
-        LocalDateTime d02 = LocalDateTime.now();
+        System.out.println("========== LocalDateTime");
+        LocalDateTime d02 = LocalDateTime.now();            // Saída: 2023-01-13T21:56:18.270
         System.out.println(d02);
         
-        // Texto formato customizado ➞ Data-hora
-        // Data Hora GMT - Global - Horário de Londres
-        Instant d03 = Instant.now();
+        System.out.println("========== Instant");
+        Instant d03 = Instant.now();                        // Saída: 2023-01-14T00:56:18.270Z
+        System.out.println(d03);
+    }
+    
+    public static void textoIso8601() {
+        //- (agora) ➞ Data-hora
+        System.out.println("========== ISO 8601");
+        LocalDate d01 = LocalDate.parse("2023-01-13");                  // Saída: 2023-01-13
+        System.out.println(d01);
+        
+        System.out.println("========== LocalDateTime ISO 8601");
+        LocalDateTime d02 = LocalDateTime.parse("2023-01-10T01:30:26");  // Saída: 2023-01-10T01:30:26
+        System.out.println(d02);
+        
+        System.out.println("========== Instant ISO 8601");
+        Instant d03 = Instant.parse("2023-01-20T21:13:10Z");             // Saída: 2023-01-20T21:13:10Z
         System.out.println(d03);
         
-        // dia, mês, ano, [horário] ➞ Data-hora local
-        // Formatação
-        // Data//hora ➞ Texto ISO 8601 ano-mes-dia
-        LocalDate d04 = LocalDate.parse("2022-11-12");
+        System.out.println("========== Instant TimeZone diferente do GMT");
+        // só funciona do java 11 acima = Instant d04 = Instant.parse("2023-01-20T21:13:10-03:00");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Instant d04 = null;
+        try {
+            d04 = sdf.parse("2022-07-20T01:30:26-03:00").toInstant();     // Saída: 2022-07-20T04:30:26Z
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         System.out.println(d04);
-        
-        LocalDateTime d05 = LocalDateTime.parse("2022-11-22T01:30:26");
-        System.out.println(d05);
-        
-        Instant d06 = Instant.parse("2022-11-22T01:30:26Z");
-        System.out.println(d06);
-        
-        // GMT - salvando com hora local
-        Instant d07 = Instant.parse("2022-11-22T01:30:26-03:00");
-        System.out.println(d07);
-        
-        // Formatação
-        // Data//hora ➞ Texto ISO 8601 ano-mes-dia
-        // Data//hora ➞ Texto formato customizado
-        System.out.println("\nData-hora ➞ Texto formato customizado");
+    }
+    
+    public static void textoFormatoCustomizado() {
+        System.out.println("========== LocalDate");
         DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate d08 = LocalDate.parse("12/11/2022", dtf1);
+        LocalDate d01 = LocalDate.parse("13/01/2023", dtf1);                //Saída: 2023-01-13
+        System.out.println(d01);
         
-        System.out.println("d08: " + d08);
+        System.out.println("========== LocalDateTime");         
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime d02 = LocalDateTime.parse("20/07/2023 01:30", dtf2);  //Saída: 2023-07-20T01:30
+        System.out.println(d02);
         
-        DateTimeFormatter dtf2 = DateTimeFormatter
-                .ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime d09 = LocalDateTime.parse("12/11/2022 01:30", dtf2);
+        System.out.println("========== Data separada");                           
+        LocalDate d03 = LocalDate.of(2022, 7, 20);
+        System.out.println(d03);                                            //Saída: 2022-07-20
         
-        System.out.println("d09: " + d09);
-        // dia, mês, ano, [horário] ➞ Data-hora local
-        System.out.println("\ndia, mês, ano, [horário] ➞ Data-hora local");
-        LocalDate d10 = LocalDate.of(2022, 10, 22);
-        System.out.println("d10: " + d10);
-        
-        LocalDateTime d11 = LocalDateTime.of(2022, 10, 22, 1, 30);
-        System.out.println("d10: " + d11);
-        
-        // Formatação
-        System.out.println("\nFormatação");
-        LocalDate d12 = LocalDate.parse("2022-07-20");
-        LocalDateTime d13 = LocalDateTime.parse("2022-07-20T01:30:26");
-        Instant d14 = Instant.parse("2022-11-12T14:56:26Z");
-        
-        // Data//hora ➞ Texto ISO 8601 ano-mes-dia
-        DateTimeFormatter fmt1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter fmt2 = DateTimeFormatter
-                .ofPattern("dd/MM/yyyy HH:mm");
-        // pega timezone do usuário
-        DateTimeFormatter fmt3 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:MM")
-                .withZone(ZoneId.systemDefault());
-        DateTimeFormatter fmt4 = DateTimeFormatter.ISO_DATE_TIME;
-        // para data instant
-        DateTimeFormatter fmt5 = DateTimeFormatter.ISO_INSTANT;
-        
-        System.out.println("Sem formatação - d12: " + d12);
-        System.out.println("Com formatação fmt1 - d12: " + d12.format(fmt1));
-        System.out.println("Outra forma - d12: " + fmt1.format(d12));
-        System.out.println("-------------------------------------");
-        System.out.println("fmt1 - d13: " + d13.format(fmt1));
-        System.out.println("fmt2 - d13: " + d13.format(fmt2));
-        System.out.println("Pegou uma Hora GMT e tranformou para a hora local");
-        System.out.println("fmt3 - d14: " + fmt3.format(d14));
-        System.out.println("fmt4 - d13: " + d13.format(fmt4));
-        
-        System.out.println("fmt5 - d14: " + fmt5.format(d14));
-        
-        // Convertendo data-hora global para local
+        System.out.println("========== Data separada DateTime");                           
+        LocalDateTime d04 = LocalDateTime.of(2022, 7, 20, 1, 30);           //Saída: 2022-07-20T01:30
+        System.out.println(d04); 
     }
+    // Java 7
     
-    public static void ConvertendoDataHoraGlobalParaLocal() {
-        // precisa informar o timezone
-        LocalDate d04 = LocalDate.parse("2022-07-20");
-        LocalDateTime d05 = LocalDateTime.parse("2022-07-20T01:30:26");
-        Instant d06 = Instant.parse("2022-07-20T01:30:26Z");
-        
-        // ZoneId.getAvailableZoneIds();
-        // converter timezone global em local
-        LocalDate r1 = LocalDate.ofInstant(d06, ZoneId.systemDefault());
-        LocalDate r2 = LocalDate.ofInstant(d06, ZoneId.of("Portugal"));
-        LocalDateTime r3 = LocalDateTime.ofInstant(d06, ZoneId.systemDefault());
-        LocalDateTime r4 = LocalDateTime.ofInstant(d06, ZoneId.of("Portugal"));
-        
-        System.out.println("r1 = " + r1);
-        System.out.println("r2 = " + r2);
-        System.out.println("r3 = " + r3);
-        System.out.println("r4 = " + r4);
-        
-        // Obter dados de uma data-hora-local
-        System.out.println("d04 Dia = " + d04.getDayOfMonth());
-        System.out.println("d04 Mês = " + d04.getMonth());
-        System.out.println("d04 Mês = " + d04.getMonthValue());
-        
-        System.out.println("d05 Hora = " + d05.getHour());
-        System.out.println("d05 Minuto = " + d05.getMinute());
-    }
-    
-    public static void calculoComData() {
-        LocalDate d04 = LocalDate.parse("2022-07-20");
-        LocalDateTime d05 = LocalDateTime.parse("2022-07-20T01:30:26");
-        Instant d06 = Instant.parse("2022-07-20T01:30:26Z");
-        
-        LocalDate semanaAnterior = d04.minusDays(7);
-        LocalDate proximaSemana = d04.plusDays(7);
-        
-        System.out.println("-7 dias = " + semanaAnterior);
-        System.out.println("+7 dias = " + proximaSemana);
-        
-        LocalDateTime semanaAnteriorTime = d05.minusDays(7);
-        LocalDateTime proximaSemanaTime = d05.plusDays(7);
-        LocalDateTime proximaHoraTime = d05.plusHours(5);
-        
-        System.out.println("-7 dias = " + semanaAnteriorTime);
-        System.out.println("+7 dias = " + proximaSemanaTime);
-        System.out.println("+5 horas = " + proximaHoraTime);
-        
-        Instant pastWeekInstant = d06.minus(7, ChronoUnit.DAYS);
-        
-        System.out.println("-7 dias Instant: " + pastWeekInstant);
-        
-        // Duração entre duas datas
-        Duration t1 = Duration.between(proximaSemanaTime, d05);
-        System.out.println("T1 dias: " + t1.toDays());
-        
-        // não da pra calcular diferença entre 2 localdate
-        // Duration t2 = Duration.between(semanaAnterior.atTime(0,0),
-        // d04.atTime(0,0));
-        Duration t2 = Duration.between(semanaAnterior.atStartOfDay(),
-                d04.atStartOfDay());
-        System.out.println("T2 dias: " + t2.toDays());
-        
-        // instant
-        Duration t3 = Duration.between(pastWeekInstant, d06);
-        System.out.println("T3 dias: " + t3.toDays());
-        
-    }
-    
+   
+    /*
     public static void teste() {
         Instant d06 = Instant.parse("2022-12-15T16:13:42.060Z");
         System.out.println(d06.getClass());
@@ -186,4 +94,5 @@ public class Program {
         System.out
                 .println("LocalDateTime depois de formatar: " + agoraFormatado);
     }
+    */
 }
