@@ -15,20 +15,32 @@ public class Program {
     public static void main(String[] args) {
         /*System.out.println("(agora) ➞ Data-hora");
         instanciandoDataDoAgora();
+        
         System.out.println("Texto ISO 8601 ➞ Data-hora");
         textoIso8601();
+        
         System.out.println("Texto formato customizado ➞ Data-hora");
         textoFormatoCustomizado();
+        
         System.out.println("Data e hora para texto");
         dataHoraParaTexto(); 
+        
         System.out.println("Converter Data e Hora Local Para Global");
         converterDataHoraLocalParaGlobal();
+        
         System.out.println("Obter Dados De Uma Data Hora Local");
         obterDadosDeUmaDataHoraLocal();
+        
         System.out.println("Calculo com data e hora");
-        calculoDataHora();*/
+        calculoDataHora();
+        
         System.out.println("Duração entre datas");
-        DuracaoEntreDatas();
+        DuracaoEntreDatas();*/
+        
+        System.out.println("Trabalhando com datas java 7 - Date");
+        trabalhandoComDatasJava7();
+        System.out.println("Manipulando um Date com Calendar - Java 7");
+        //manipulandoDateComCalendarJava7();
     }
     // Java 8+
     public static void instanciandoDataDoAgora() {
@@ -188,9 +200,27 @@ public class Program {
         
         Duration t1 = Duration.between(pastWeekLocalDateTime, d02);
         System.out.println("Duration: "+t1.toDays());                                //Saída: 3
+        
+        Duration t2 = Duration.between(pastWeekLocalDate.atTime(0, 0), d01.atTime(0,0));
+        System.out.println("Duration: "+t2.toDays());                                //Saída: 7
+        
+        // converte para localDateTime a meia noite
+        Duration t3 = Duration.between(pastWeekLocalDate.atStartOfDay(), d01.atStartOfDay());
+        System.out.println("Duration: "+t3.toDays());                                //Saída: 7
+        
+        Instant pastWeekInstant = d03.minus(7, ChronoUnit.DAYS);
+        Duration t4 = Duration.between(pastWeekInstant, d03);
+        System.out.println("Duration: "+t4.toDays());                                //Saída: 7
+
+        // datas invertidas
+        Duration t5 = Duration.between(d03, pastWeekInstant);
+        System.out.println("Duration: "+t5.toDays());                                //Saída: -7
     }
-    // Java 7
     
+    // Java 7
+    public static void trabalhandoComDatasJava7() {
+        
+    }
    
     /*
     public static void teste() {
