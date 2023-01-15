@@ -8,7 +8,7 @@
 - Conversão de String para enum
 	- OrderStatus os2 = OrderStatus.valueOf("DELIVERED");
 ##### Notação UML
-![Notação UML](./img_readme/notacaouml.png)
+![Notação UML](../img_readme/notacaouml.png)
 ### COMPOSIÇÕES
 > É um tipo de associação que permite que um objeto contenha outro
 > Relação "tem-um" ou "tem-vários"
