@@ -9,10 +9,13 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class Program {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         /*System.out.println("(agora) ➞ Data-hora");
         instanciandoDataDoAgora();
         
@@ -37,10 +40,10 @@ public class Program {
         System.out.println("Duração entre datas");
         DuracaoEntreDatas();*/
         
-        System.out.println("Trabalhando com datas java 7 - Date");
-        trabalhandoComDatasJava7();
+        //System.out.println("Trabalhando com datas java 7 - Date");
+        //trabalhandoComDatasJava7();
         System.out.println("Manipulando um Date com Calendar - Java 7");
-        //manipulandoDateComCalendarJava7();
+        manipulandoDateComCalendarJava7();
     }
     // Java 8+
     public static void instanciandoDataDoAgora() {
@@ -218,10 +221,64 @@ public class Program {
     }
     
     // Java 7
-    public static void trabalhandoComDatasJava7() {
-        
-    }
+    public static void trabalhandoComDatasJava7() throws ParseException {
+        // SimpleDateFormat -> define formatos para conversão entre Date e String
+        // Padrão ISO 8601 - yyyy-MM-ddTHH:mm:ssZ
+       
+       SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+       SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+       // TimeZone UTC
+       SimpleDateFormat sdf3 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+       sdf3.setTimeZone(TimeZone.getTimeZone("GMT"));
+       
+       Date y1 = sdf1.parse("15/01/2023");
+       System.out.println("y1: "+y1);                       // Saída: Sun Jan 15 00:00:00 BRT 2023
+       
+       Date y2 = sdf2.parse("15/01/2023 15:42:07");
+       System.out.println("y2: "+y2);                       // Saída: Sun Jan 15 15:42:07 BRT 2023
+       
+       // imprimendo no formato especificado no SDF
+       System.out.println("---------------------");
+       System.out.println("y1: "+sdf1.format(y1));         // Saída: 15/01/2023
+       System.out.println("y2: "+sdf2.format(y2));         // Saída: 15/01/2023 15:42:07
+       
+       // data atual
+       Date x1 = new Date();
+       System.out.println("x1: "+x1);                       // Saída: Sun Jan 15 15:48:11 BRT 2023
+       Date x2 = new Date(System.currentTimeMillis());
+       System.out.println("x2: "+x2);                       // Saída: Sun Jan 15 15:48:11 BRT 2023
+       Date x3 = new Date(0L);
+       System.out.println("x3: "+x3);                       // Saída: Wed Dec 31 21:00:00 BRT 1969
+       Date x4 = new Date(1000L * 60L * 60L * 5L);
+       System.out.println("x4: "+x4);                       // Saída: Thu Jan 01 02:00:00 BRT 1970
+       
+       // ISO 8601
+       Date y3 = Date.from(Instant.parse("2023-01-15T15:53:07Z"));
+       System.out.println("y3: "+y3);                       // Saída: Sun Jan 15 12:53:07 BRT 2023
+       System.out.println("y3: "+sdf2.format(y3));          // Saída: 15/01/2023 12:53:07
+       System.out.println("y3: "+sdf3.format(y3));          // Saída: 15/01/2023 15:53:07
+ 
+     }
    
+    public static void manipulandoDateComCalendarJava7() {
+       // Somando unidade de tempo
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date d = Date.from(Instant.parse("2018-06-25T15:42:07Z"));
+        System.out.println(d);                                      // Saída: Mon Jun 25 12:42:07 BRT 2018
+        
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        cal.add(Calendar.HOUR_OF_DAY, 4);
+        d = cal.getTime();
+        System.out.println(d);                                      // Saída: Mon Jun 25 16:42:07 BRT 2018
+        // Obtendo uma unidade de tempo
+        int minutos = cal.get(Calendar.MINUTE);
+        System.out.println("MINUTOS: "+minutos);                    // Saída: 42
+        
+        // Para fica certo teve que adicionar +1, pois no calendar o mês de Janeiro é 0
+        int month = 1+ cal.get(Calendar.MONTH);
+        System.out.println("MONTH: "+month);                        // Saída: 6
+    }
     /*
     public static void teste() {
         Instant d06 = Instant.parse("2022-12-15T16:13:42.060Z");
@@ -237,3 +294,4 @@ public class Program {
     }
     */
 }
+
