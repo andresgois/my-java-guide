@@ -14,7 +14,7 @@
 > Relação "tem-um" ou "tem-vários"
 - Vantagens
 	- Organização: divisão de responsabilidades
-	- Coesão
+	- Coesão: cada objeto responsável por uma única coisa.
 	- Flexibilidade
 	- Reuso
 - Nota: embora o símbolo UML para composição (todo-parte) seja o diamante preto, neste contexto estamos chamando de composição qualquer associação tipo "tem-um" e "tem-vários".
