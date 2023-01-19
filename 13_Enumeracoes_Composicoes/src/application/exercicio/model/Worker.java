@@ -1,16 +1,21 @@
 package application.exercicio.model;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import application.exercicio.enums.WorkerLevel;
 
 public class Worker {
     
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private String name;
     private Double baseSalary;
     private WorkerLevel level;
     private Department department;
-    private List<HourContract> contract;
+    private List<HourContract> contract = new ArrayList<>();
     
     public Worker() {}
 
@@ -66,20 +71,35 @@ public class Worker {
     
     public Double income(String mesAno) {
         Integer year = retornaNum(mesAno, 1);
-        Integer month =  retornaNum(mesAno, 2);
-        Double valorContract = 0.0;
+        Integer month =  retornaNum(mesAno, 0);
+        Double valorContract = this.baseSalary;
+        Calendar cal = Calendar.getInstance();
+        
         for (HourContract hourContract : contract) {
-            if(hourContract.getDate().getYear() == year && (hourContract.getDate().getMonth()+1) == month) {
-                valorContract += hourContract.getValuePerHour();
+            cal.setTime(hourContract.getDate());
+            int c_year = cal.get(Calendar.YEAR);
+            int c_month = 1 + cal.get(Calendar.MONTH);
+            if(c_year == year && c_month == month) {
+                valorContract += hourContract.totalValue();
             }
         }
-        
         return valorContract;
     }
     
     public Integer retornaNum(String n, int posicaoRetorno) {
         String[] arr = n.split("/");
         return Integer.valueOf(arr[posicaoRetorno]);
+    }
+    
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("Name: ");
+        sb.append(this.name);
+        sb.append("\nDepartment: ");
+        sb.append(this.department.getName());
+        
+        return sb.toString();
     }
     
 }
