@@ -1,7 +1,10 @@
 package application;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Scanner;
 
 import application.exercicio.enums.WorkerLevel;
@@ -11,7 +14,7 @@ import application.exercicio.model.Worker;
 
 public class Program {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
        /* Order order = new Order(1080, new Date(), OrderStatus.PENDING_PAYMENT);
         System.out.println(order);
         // CONVERTER STRING PARA ENUM
@@ -26,9 +29,9 @@ public class Program {
          * do usuário um mês e mostrar qual foi o salário do funcionário nesse mês, conforme exemplo 
          * (próxima página).
          */
+        Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
-        
-        Worker w = null;
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
         
         System.out.print("Enter department's name: ");
         String department = sc.next();
@@ -41,6 +44,7 @@ public class Program {
         System.out.print("Base Salary: ");
         Double baseSalary = sc.nextDouble();
         
+        Worker w = new Worker(name, baseSalary, WorkerLevel.valueOf(level), new Department(department));
         System.out.print("How contracts to this worker? ");
         int contracts = sc.nextInt();
         
@@ -54,16 +58,18 @@ public class Program {
             System.out.print("Duration (hours): ");
             Integer hours = sc.nextInt();
             
-            HourContract contract = new HourContract(new Date(data), valuePerHour, hours);
-            WorkerLevel wl = WorkerLevel.valueOf(level);
-            w = new Worker(name, baseSalary, wl, new Department(department));
+            Date datac = sdf1.parse(data);
+            
+            HourContract contract = new HourContract(datac, valuePerHour, hours);
+            
             w.addContract(contract);
         }
         
         System.out.println("Enter month and year to calculate income (MM/YYYY): ");
         String mesAno = sc.next();
-        w.income(mesAno);
+        Double v = w.income(mesAno);
         System.out.println(w);
+        System.out.println("Income for "+mesAno+": "+v);
     }
     
 }
