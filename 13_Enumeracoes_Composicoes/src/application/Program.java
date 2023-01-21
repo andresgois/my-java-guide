@@ -11,6 +11,7 @@ import application.exercicio.enums.WorkerLevel;
 import application.exercicio.model.Department;
 import application.exercicio.model.HourContract;
 import application.exercicio.model.Worker;
+import application.exercicio2.model.Post;
 
 public class Program {
     
@@ -31,7 +32,7 @@ public class Program {
          */
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+        /*SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
         
         System.out.print("Enter department's name: ");
         String department = sc.next();
@@ -69,7 +70,21 @@ public class Program {
         String mesAno = sc.next();
         Double v = w.income(mesAno);
         System.out.println(w);
-        System.out.println("Income for "+mesAno+": "+v);
+        System.out.println("Income for "+mesAno+": "+v);*/
+        
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        
+        System.out.print("Digite o titulo: ");
+        String title = sc.next();
+        System.out.print("Quantidade de likes: ");
+        int likes = sc.nextInt();
+        System.out.print("Digite a Data: ");
+        String d = sc.next();
+        System.out.print("Digite o conteúdo: ");
+        String content = sc.next();
+        Date data = sdf2.parse(d);
+        
+        Post p = new Post(data, title, content, likes);
     }
     
 }
