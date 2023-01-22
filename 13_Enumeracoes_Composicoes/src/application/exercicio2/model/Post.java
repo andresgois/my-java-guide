@@ -1,11 +1,13 @@
 package application.exercicio2.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Post {
     
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     private Date moment;
     private String title;
     private String content;
@@ -57,6 +59,12 @@ public class Post {
     public void addComment(Comment c) {
         this.comment.add(c);
     }
+    
+    
+
+    public List<Comment> getComment() {
+        return comment;
+    }
 
     @Override
     public String toString() {
@@ -64,8 +72,11 @@ public class Post {
         sb.append("POST\n");
         sb.append(this.title);
         sb.append("\n");
-        sb.append(this.likes+" Likes - "+this.moment);
+        sb.append(this.likes+" Likes - "+sdf.format(moment));
         sb.append("\n"+this.content);
+        for (Comment c : getComment()) {
+            sb.append(c.getText()+"\n");
+        }
         return sb.toString();
     }
     
