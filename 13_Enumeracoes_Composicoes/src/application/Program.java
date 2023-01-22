@@ -11,6 +11,7 @@ import application.exercicio.enums.WorkerLevel;
 import application.exercicio.model.Department;
 import application.exercicio.model.HourContract;
 import application.exercicio.model.Worker;
+import application.exercicio2.model.Comment;
 import application.exercicio2.model.Post;
 
 public class Program {
@@ -75,16 +76,32 @@ public class Program {
         SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         
         System.out.print("Digite o titulo: ");
-        String title = sc.next();
+        String title = sc.nextLine();
         System.out.print("Quantidade de likes: ");
-        int likes = sc.nextInt();
+        int likes = Integer.valueOf(sc.nextLine());
         System.out.print("Digite a Data: ");
-        String d = sc.next();
+        String d = sc.nextLine();
         System.out.print("Digite o conteúdo: ");
-        String content = sc.next();
+        String content = sc.nextLine();
         Date data = sdf2.parse(d);
         
         Post p = new Post(data, title, content, likes);
+        
+        // Comentários
+        System.out.println("Digite quantos comentários deseja fazer");
+        int comments = Integer.valueOf(sc.nextLine());
+        
+        for (int i = 0; i < comments; i++) {
+            System.out.println("Comentário: ");
+            String comment = sc.nextLine();
+            
+            Comment c = new Comment(comment);
+            p.addComment(c);
+        }
+        
+        System.out.println("");
+        System.out.println(p);
+        
     }
     
 }
