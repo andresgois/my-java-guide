@@ -37,6 +37,14 @@ public class OrderItem {
         return product;
     }
     
+    public void addProduct(Product p) {
+        product.add(p);
+    }
+    
+    public void removeProduct(Product p) {
+        product.remove(p);
+    }
+    
     public Double subTotal() {
         Double total = 0.0;
         for (Product p : product) {
@@ -45,4 +53,16 @@ public class OrderItem {
         return total;
     }
     
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        for (Product p : product) {
+            sb.append(p.getName()+", $");
+            sb.append(p.getPrice()+", ");
+            sb.append(quantity);
+            sb.append(", SubTotal: $ "+subTotal());
+        }
+        
+        return sb.toString();
+    }
 }

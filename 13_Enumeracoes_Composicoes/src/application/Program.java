@@ -7,12 +7,17 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Scanner;
 
+import application.enums.OrderStatus;
 import application.exercicio.enums.WorkerLevel;
 import application.exercicio.model.Department;
 import application.exercicio.model.HourContract;
 import application.exercicio.model.Worker;
 import application.exercicio2.model.Comment;
 import application.exercicio2.model.Post;
+import application.exercicio3.model.Client;
+import application.exercicio3.model.Order;
+import application.exercicio3.model.OrderItem;
+import application.exercicio3.model.Product;
 
 public class Program {
     
@@ -31,6 +36,8 @@ public class Program {
          * do usuário um mês e mostrar qual foi o salário do funcionário nesse mês, conforme exemplo 
          * (próxima página).
          */
+        
+        // #### Exercício 1 ####
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
         /*SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
@@ -73,6 +80,8 @@ public class Program {
         System.out.println(w);
         System.out.println("Income for "+mesAno+": "+v);*/
         
+        // #### Exercício 2 ####
+        /*
         SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         
         System.out.print("Digite o titulo: ");
@@ -101,7 +110,54 @@ public class Program {
         
         System.out.println("");
         System.out.println(p);
+        */
         
+        // #### Exercício 3 ####
+        final SimpleDateFormat sdf3 = new SimpleDateFormat("dd/MM/yyyy");
+        
+        System.out.println("Enter cliente Data:");
+        System.out.print("Name: ");
+        String name = sc.nextLine();
+        System.out.print("E-mail: ");
+        String email = sc.nextLine();
+        System.out.print("Birth date: ");
+        String data = sc.nextLine();
+        
+        Date birthDate = sdf3.parse(data);
+        Client client = new Client(name, email, birthDate);
+        
+        System.out.println("Enter order status: ");
+        System.out.print("Status: ");
+        OrderStatus status = OrderStatus.valueOf(sc.nextLine());
+        
+        System.out.print("How many items to this order? ");
+        int n = Integer.valueOf(sc.nextLine());
+        
+        Order order = new Order(new Date(), status);
+        OrderItem orderItem = null;
+        Product p = null;
+        
+        for (int i = 0; i < n; i++) {
+            System.err.printf("Enter #%d item data: \n",i+1);
+            System.out.print("Product name: ");
+            String nameProduct = sc.nextLine();
+            System.out.print("Product price: ");
+            Double priceProduct = Double.valueOf(sc.nextLine());
+            System.out.print("Quantity: ");
+            Integer quantityProduct = Integer.valueOf(sc.nextLine());
+            
+            p = new Product(nameProduct, priceProduct);
+            orderItem = new OrderItem(quantityProduct, priceProduct);
+            orderItem.addProduct(p);
+            order.addItem(orderItem);
+        }
+        
+        order.setClient(client);
+        
+        System.out.println();
+        
+        System.out.println("ORDER SUMARY:");
+        System.out.println(order);
     }
     
 }
