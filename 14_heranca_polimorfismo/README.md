@@ -24,10 +24,13 @@
 - Upcasting
 	- Casting da subclasse para superclasse
 	- Uso comum: polimorfismo
+> Atribuir um BusinessAccount a um Account
 - Downcasting
 	- Casting da superclasse para subclasse
 	- Palavra instanceof
 	- Uso comum: métodos que recebem parâmetros genéricos (ex: Equals)
+> Atribuir um Account a um BusinessAccount
+
 - Upcasting e Downcasting Exemplo
 
 ![Upcasting e Downcasting](../img_readme/diagrama_heranca02.png)
