@@ -39,5 +39,19 @@ public class Program {
             System.out.println("Update!");
         }
         
+        Account c1 = new Account(11, "Paulo'", 1000.0);
+        c1.withdraw(200.0);
+        
+        Account c2 = new SavingsAccount(12, "Luan", 1000.0, 0.01);
+        c2.withdraw(200.0);
+        
+        Account c3 = new BusinessAccount(12, "Luan", 1000.0, 500.0);
+        c3.withdraw(200.0);
+        
+        System.out.println(c1.getBalance());
+        System.out.println(c2.getBalance());
+        System.out.println(c3.getBalance());
+        
+        
     }
 }
