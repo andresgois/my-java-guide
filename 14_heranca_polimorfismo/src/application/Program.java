@@ -1,6 +1,9 @@
 package application;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -10,10 +13,13 @@ import application.exemplo1.BusinessAccount;
 import application.exemplo1.SavingsAccount;
 import application.exercicioEmployee.Employee;
 import application.exercicioEmployee.OutsourceEmployee;
+import application.exercicioProducts.ImportedProduct;
+import application.exercicioProducts.Product;
+import application.exercicioProducts.UsedProduct;
 
 public class Program {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         // #### Exemplo 1 ####
         /**
          * Classe Account é a *GENERALIZAÇÃO* Classe BusinessAccount é a
@@ -23,7 +29,8 @@ public class Program {
         
         //exemplo01();
         
-        exercicio01();
+        //exercicio01();
+        exercicio02();
         
     }
     
@@ -106,4 +113,48 @@ public class Program {
         
         sc.close();
     }
+    
+    public static void exercicio02() throws ParseException{
+        Scanner sc = new Scanner(System.in);
+        Locale.setDefault(Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
+        System.out.print("Enter the number of products: ");
+        Integer n = Integer.valueOf(sc.nextLine());
+        
+        List<Product> pro = new ArrayList<>();
+        
+        for (int i = 0; i < n; i++) {
+            System.out.printf("Product #%d data:  \n",(i+1));
+            System.out.print("Common, used or imported (c/u/i): ");
+            char valor = sc.next().charAt(0);
+            System.out.print("Name: ");
+            sc.nextLine();
+            String name = sc.nextLine();
+            System.out.print("Price: ");
+            Double price = Double.valueOf(sc.nextLine());
+            
+            if(valor == 'i' ) {
+                System.out.print("Custom fee: ");
+                Double customFee = Double.valueOf(sc.nextLine());
+                
+                pro.add(new ImportedProduct(name, price, customFee));
+            } else if(valor == 'u') {
+                System.out.print("Manufacture date (DD/MM/YYYY): ");
+                String data = sc.nextLine();
+                Date d = sdf.parse(data);
+                pro.add(new UsedProduct(name, price, d));
+            } else {
+                pro.add(new Product(name, price));
+            }
+        }
+        
+        System.out.println();
+        
+        System.out.println("PRICE TAGS:");
+        System.out.println(pro);
+        
+        sc.close();
+    }
+    
 }
