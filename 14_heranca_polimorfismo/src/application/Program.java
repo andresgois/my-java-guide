@@ -1,9 +1,9 @@
 package application;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -27,9 +27,9 @@ public class Program {
          * propriedades e m√©todo que account tem.
          */
         
-        //exemplo01();
+        // exemplo01();
         
-        //exercicio01();
+        // exercicio01();
         exercicio02();
         
     }
@@ -47,7 +47,7 @@ public class Program {
         
         // DOWNCASTING - Converte objeto da super classe para o da subclasse
         BusinessAccount acc4 = (BusinessAccount) acc2;
-        // Opera√ß√£o n√£o permitida, vai acusar em tempo de execu√ß√£o
+        // OperaÁ„o n„o permitida, vai acusar em tempo de execuÁ„o
         // BusinessAccount acc5 = (BusinessAccount)acc3; // ClassCastException
         if (acc3 instanceof BusinessAccount) {
             BusinessAccount acc5 = (BusinessAccount) acc3;
@@ -75,8 +75,8 @@ public class Program {
         System.out.println(c3.getBalance());
         
     }
-
-    public static void exercicio01(){
+    
+    public static void exercicio01() {
         Scanner sc = new Scanner(System.in);
         Locale.setDefault(Locale.US);
         
@@ -86,7 +86,7 @@ public class Program {
         List<Employee> emp = new ArrayList<>();
         
         for (int i = 0; i < n; i++) {
-            System.out.printf("Employee #%d data:  \n",(i+1));
+            System.out.printf("Employee #%d data:  \n", (i + 1));
             System.out.print("Outsource (y/n): ");
             char valor = sc.next().charAt(0);
             System.out.print("Name: ");
@@ -97,12 +97,13 @@ public class Program {
             System.out.print("Value per hour: ");
             Double valuePerHour = Double.valueOf(sc.nextLine());
             
-            if(valor == 'y' ) {
+            if (valor == 'y') {
                 System.out.print("Additional charge: ");
                 Double additional = Double.valueOf(sc.nextLine());
-                emp.add( new OutsourceEmployee(name, hour, valuePerHour, additional));
+                emp.add(new OutsourceEmployee(name, hour, valuePerHour,
+                        additional));
             } else {
-                emp.add( new Employee(name, hour, valuePerHour));
+                emp.add(new Employee(name, hour, valuePerHour));
             }
         }
         
@@ -114,10 +115,9 @@ public class Program {
         sc.close();
     }
     
-    public static void exercicio02() throws ParseException{
+    public static void exercicio02() throws ParseException {
         Scanner sc = new Scanner(System.in);
         Locale.setDefault(Locale.US);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         
         System.out.print("Enter the number of products: ");
         Integer n = Integer.valueOf(sc.nextLine());
@@ -125,7 +125,7 @@ public class Program {
         List<Product> pro = new ArrayList<>();
         
         for (int i = 0; i < n; i++) {
-            System.out.printf("Product #%d data:  \n",(i+1));
+            System.out.printf("Product #%d data:  \n", (i + 1));
             System.out.print("Common, used or imported (c/u/i): ");
             char valor = sc.next().charAt(0);
             System.out.print("Name: ");
@@ -134,16 +134,14 @@ public class Program {
             System.out.print("Price: ");
             Double price = Double.valueOf(sc.nextLine());
             
-            if(valor == 'i' ) {
+            if (valor == 'i') {
                 System.out.print("Custom fee: ");
                 Double customFee = Double.valueOf(sc.nextLine());
-                
                 pro.add(new ImportedProduct(name, price, customFee));
-            } else if(valor == 'u') {
+            } else if (valor == 'u') {
                 System.out.print("Manufacture date (DD/MM/YYYY): ");
-                String data = sc.nextLine();
-                Date d = sdf.parse(data);
-                pro.add(new UsedProduct(name, price, d));
+                LocalDate date = LocalDate.parse(sc.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                pro.add(new UsedProduct(name, price, date));
             } else {
                 pro.add(new Product(name, price));
             }
@@ -152,7 +150,9 @@ public class Program {
         System.out.println();
         
         System.out.println("PRICE TAGS:");
-        System.out.println(pro);
+        for (Product product : pro) {
+            System.out.println(product.priceTag());
+        }
         
         sc.close();
     }

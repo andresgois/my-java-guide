@@ -14,7 +14,9 @@ public class Product {
     }
 
     public String priceTag() {
-        return this.name+ " $ "+String.format("%.2f", this.price);
+        return name
+                + " $ "
+                +String.format("%.2f", price);
     }
 
     public String getName() {
@@ -34,11 +36,6 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-    
-    @Override
-    public String toString() {
-        return this.priceTag();
     }
     
 }
