@@ -1,6 +1,5 @@
 package application;
 
-import java.text.DateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,6 +13,7 @@ import java.time.temporal.ChronoUnit;
 
 import application.enums.MotivoSustacaoEnum;
 import application.enums.SituacaoChequeEnum;
+import application.enums.TipoContaDestinoEnum;
 
 public class MainTest {
     
@@ -34,23 +34,31 @@ public class MainTest {
           //dataAtualizacaoRegistro
           // 2023-02-14T11:19:48.084Z"
           // 2023-02-14T14:19:48.329Z
-          Integer dataAtualizacaoRegistro=20230214; 
-          Integer horaAtualizacaoRegistro=111948;
-          
-          String teste = concatDataHora(dataAtualizacaoRegistro.toString(), horaAtualizacaoRegistro.toString());
-          System.out.println(teste);
+          /*
+           * Integer dataAtualizacaoRegistro=20230214; Integer
+           * horaAtualizacaoRegistro=111948;
+           * 
+           * String teste = concatDataHora(dataAtualizacaoRegistro.toString(),
+           * horaAtualizacaoRegistro.toString()); System.out.println(teste);
+           */
           // dataAtualizacaoRegistro
           // dataSolicitacaoTalao
           /*System.out.println("29/02/2016 eh uma data valida? " + isDateValid("29/02/2016"));
           System.out.println("29/02/2017 eh uma data valida? " + isDateValid("29/02/2017"));
           System.out.println("31/06/2017 eh uma data valida? " + isDateValid("30/01/2017"));
           System.out.println("31/04/2017 eh uma data valida? " + isDateValid("31/04/2017"));*/
-          System.out.println("29/02/2017 eh uma data valida? " + isDateValid("20170229"));
-          System.out.println("31/06/2017 eh uma data valida? " + isDateValid("20170130"));
-          System.out.println("31/06/2017 eh uma data valida? " + isDateValid("20230230"));
-          String p = isDateValid("00000000") ? "data": " - ";
-          System.out.println("31/06/2017 eh uma data valida? " + p);
-          System.out.println("31/06/2017 eh uma data valida? " + isDateValid("20170627"));
+          /*
+           * System.out.println("29/02/2017 eh uma data valida? " +
+           * isDateValid("20170229"));
+           * System.out.println("31/06/2017 eh uma data valida? " +
+           * isDateValid("20170130"));
+           * System.out.println("31/06/2017 eh uma data valida? " +
+           * isDateValid("20230230")); String p = isDateValid("00000000") ?
+           * "data": " - "; System.out.println("31/06/2017 eh uma data valida? "
+           * + p); System.out.println("31/06/2017 eh uma data valida? " +
+           * isDateValid("20170627"));
+           */
+        enums();
     }
     
     public static boolean isDateValid(String strDate) {
@@ -120,12 +128,15 @@ public class MainTest {
     }
     
     public static void enums() {
-        System.out.println(MotivoSustacaoEnum.valueOf("RN").getDescricao());
+        /*System.out.println(MotivoSustacaoEnum.valueOf("RN").getDescricao());
         
         System.out.println(MotivoSustacaoEnum.getByCodigo("CE"));
         System.out.println(MotivoSustacaoEnum.getByCodigo("CO"));
         
         System.out.println(SituacaoChequeEnum.getByCodigo(0));
-        System.out.println(SituacaoChequeEnum.getByCodigo(10));  
+        System.out.println(SituacaoChequeEnum.getByCodigo(10)); */
+        
+        System.out.println(TipoContaDestinoEnum.getTipoConta("CONTA_CORRENTE"));
+        System.out.println(TipoContaDestinoEnum.getTipoConta("conta_pagamento"));
     }
 }
