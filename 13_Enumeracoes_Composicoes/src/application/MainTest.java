@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 import application.enums.MotivoSustacaoEnum;
 import application.enums.SituacaoChequeEnum;
@@ -129,14 +131,25 @@ public class MainTest {
     
     public static void enums() {
         /*System.out.println(MotivoSustacaoEnum.valueOf("RN").getDescricao());
-        
         System.out.println(MotivoSustacaoEnum.getByCodigo("CE"));
         System.out.println(MotivoSustacaoEnum.getByCodigo("CO"));
-        
         System.out.println(SituacaoChequeEnum.getByCodigo(0));
         System.out.println(SituacaoChequeEnum.getByCodigo(10)); */
         
-        System.out.println(TipoContaDestinoEnum.getTipoConta("CONTA_CORRENTE"));
-        System.out.println(TipoContaDestinoEnum.getTipoConta("conta_pagamento"));
+        //System.out.println(TipoContaDestinoEnum.getTipoConta("CONTA_CORRENTE"));
+        //System.out.println(TipoContaDestinoEnum.getTipoConta("conta_pagamento"));
+        
+        List<MotivoSustacaoEnum> motivo = new ArrayList<>();
+        MotivoSustacaoEnum[] lista = MotivoSustacaoEnum.values();
+        String[] strings = {"EM","RN","TESTE DE ESPACO","ID"};
+        //System.out.println(MotivoSustacaoEnum.valueOf(strings[0]));
+        //System.out.println(MotivoSustacaoEnum.valueOf(strings[2]));
+        System.out.println(MotivoSustacaoEnum.TESTE_ESPACO.getDescricao()); // TESTE DE ESPACO pelo código
+        
+        // a partir de uma String com o valor, preciso buscar meu enum
+        for(String t: strings) {
+            //System.out.println(MotivoSustacaoEnum.valueOf(t));
+            System.out.println(MotivoSustacaoEnum.pegaFuncaoPorValor(t));
+        }
     }
 }

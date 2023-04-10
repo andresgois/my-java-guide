@@ -1,12 +1,91 @@
 package application;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class MainBase64 {
     
     public static void main(String[] args) {
-        final String base64 = "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bmcvV2luQW5zaUVuY29kaW5nPj4KZW5kb2JqCjggMCBvYmoKPDwvTmFtZS9GMi9TdWJ0eXBlL1R5cGUxL1R5cGUvRm9udC9CYXNlRm9udC9IZWx2ZXRpY2EtT2JsaXF1ZS9FbmNvZGluZy9XaW5BbnNpRW5jb2Rpbmc+PgplbmRvYmoKOSAwIG9iago8PC9OYW1lL0YzL1N1YnR5cGUvVHlwZTEvVHlwZS9Gb250L0Jhc2VGb250L0hlbHZldGljYS1Cb2xkL0VuY29kaW5nL1dpbkFuc2lFbmNvZGluZz4+CmVuZG9iagoxIDAgb2JqCjw8L0NvbnRlbnRzWzIgMCBSIDMgMCBSIDQgMCBSXS9UeXBlL1BhZ2UvUmVzb3VyY2VzPDwvUHJvY1NldFsvUERGL1RleHQvSW1hZ2VCL0ltYWdlQy9JbWFnZUldL0ZvbnQ8PC9GMTEgNSAwIFIvWGkwIDYgMCBSL0YxIDcgMCBSL0YyIDggMCBSL0YzIDkgMCBSPj4+Pi9QYXJlbnQgMTAgMCBSL01lZGlhQm94WzAgMCA2MDkgNzk0XT4+CmVuZG9iagoxMCAwIG9iago8PC9LaWRzWzEgMCBSXS9UeXBlL1BhZ2VzL0NvdW50IDEvSVRYVCgyLjEuNyk+PgplbmRvYmoKMTEgMCBvYmoKPDwvVHlwZS9DYXRhbG9nL1BhZ2VzIDEwIDAgUj4+CmVuZG9iagoxMiAwIG9iago8PC9LZXl3b3Jkcyh0YWdARGFTYSMpL01vZERhdGUoRDoyMDIwMTEwNTIyNTUwMS0wMycwMCcpL0NyZWF0aW9uRGF0ZShEOjIwMjAxMTA1MjI1NTAxLTAzJzAwJykvUHJvZHVjZXIoaVRleHQgMi4xLjcgYnkgMVQzWFQpPj4KZW5kb2JqCnhyZWYKMCAxMwowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDIwMzMgMDAwMDAgbiAKMDAwMDAwMDAxNSAwMDAwMCBuIAowMDAwMDAwMDkxIDAwMDAwIG4gCjAwMDAwMDE0MTcgMDAwMDAgbiAKMDAwMDAwMTU0NCAwMDAwMCBuIAowMDAwMDAxNjQ0IDAwMDAwIG4gCjAwMDAwMDE3MzIgMDAwMDAgbiAKMDAwMDAwMTgyOCAwMDAwMCBuIAowMDAwMDAxOTMyIDAwMDAwIG4gCjAwMDAwMDIyMzcgMDAwMDAgbiAKMDAwMDAwMjMwMSAwMDAwMCBuIAowMDAwMDAyMzQ4IDAwMDAwIG4gCnRyYWlsZXIKPDwvSW5mbyAxMiAwIFIvSUQgWzxlNGY2NDYzZDIyMTQzNGJlZjVhOTQ1ZDM4MTY2MDVlOD48Y2ZmOTg3NzUxZGJiYTU5ZTEzYTBiYjlhZTNiOGY1OTQ+XS9Sb290IDExIDAgUi9TaXplIDEzPj4Kc3RhcnR4cmVmCjI0OTEKJSVFT0YK\r\n"
-                + "";
-        String path = "d:\\temp\\in.txt";
+        String data = "20170930"; // 02/03/2020 00:00:00
+        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate ld = LocalDate.parse(data, formatter);
+        
+        System.out.println(ld);
+        LocalDate localDate = LocalDate.parse("2019-01-04");
+        
+        DateTimeFormatter formatter2 = DateTimeFormatter
+                .ofPattern("dd/MM/yyyy HH:mm:ss");
+        // Beginning of the day
+        LocalDateTime localDateTime1 = localDate.atStartOfDay();
+        System.out.println(localDateTime1);
+        String x = localDateTime1.format(formatter2);
+        System.out.println(x);*/
+        
+        //formatData(data);
+        //System.out.println(formatData2(data));
+        // Current time
+        /*
+         * LocalDateTime localDateTime2 = localDate.atTime(LocalTime.now());
+         * System.out.println(localDateTime2);
+         * 
+         * //Specific time LocalDateTime localDateTime3 = localDate.atTime(04,
+         * 30, 56); System.out.println(localDateTime3);
+         */
+        
+        System.out.println(formataValor("1"));
+        System.out.println(formataValor("2.0"));
+        System.out.println(formataValor("30"));
+        System.out.println(formataValor("1089,1"));
+        System.out.println(formataValor("985"));
+        System.out.println(formataValor("9.59"));
+        System.out.println(formataValor("0.59"));
+        System.out.println(formataValor("0,89"));
+        System.out.println(formataValor("13754.65"));
+        System.out.println(formataValor("14754,65"));
+        System.out.println(formataValor("15754,65"));
+        //System.out.println(formataValor("1.558,56"));
         
     }
     
+    public static String formataValor(String v) {
+        DecimalFormat df = new DecimalFormat("######0.00");
+        Double valor = Double.valueOf(v.replace(",", "."));
+        return String.valueOf(df.format(valor));
+    }
+    
+    public static String formatData(String data) {
+        LocalDate localDate = LocalDate.parse(data);
+        DateTimeFormatter formatter2 = DateTimeFormatter
+                .ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime localDateTime1 = localDate.atStartOfDay();
+        System.out.println(localDateTime1);
+        String novaData = localDateTime1.format(formatter2);
+        System.out.println(novaData);
+        return novaData;
+    }
+    
+    public static String formatData2(String data) {
+        final LocalDate ld = LocalDate.parse(data, DateTimeFormatter.ofPattern("yyyyMMdd"));
+        final LocalDateTime localDateTime1 = ld.atStartOfDay();
+        return localDateTime1.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+    }
+    
+    /*public String formataValor(String vlCancelamento) {
+        final String vlFormatado = vlCancelamento.replace(",", "");
+        String decimal;
+        String inteiro;
+        if (vlFormatado.contains(".")) {
+            final String[] div = vlFormatado.split("\\.");
+            inteiro = StringUtils.leftPad(div[0], 15, "0");
+            decimal = StringUtils.rightPad(div[1], 2, "0");
+        } else {
+            inteiro = StringUtils.leftPad(vlFormatado, 15, "0");
+            decimal = "00";
+        }
+        return inteiro + decimal;
+    }*/
 }
