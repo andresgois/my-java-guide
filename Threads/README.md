@@ -183,8 +183,23 @@ limpeza.setPriority(Thread.MIN_PRIORITY);
 
 
 
+### Threads rápidas
+- Muito provável que você receba alguns elementos que não foram preenchidos.
+```
+0 - Thread 0 - 0
+1 - null
+2 - null
+3 - null
+4 - null
+```
+- O problema é que a nossa thread que imprime a lista foi tão rápida que não deu tempo de preencher tudo! O ideal é que a thread que imprime a lista espere até que essa lista realmente esteja preenchida! Vamos implementar isso e coordenar as nossas threads!
+
+- É preciso coordenar as threads. Só devemos imprimir os elementos quando a lista realmente está preenchida.
+- Deixe a outra thread esperar. Só imprima os elementos quando for notificado:
+- Há ainda um risco no nosso código. Imagine que as threads preencham a lista tão rápido que a notificação aconteça antes que a outra thread chame lista.wait(). Ou seja, na verdade não tinha a necessidade de esperar, pois a lista já foi preenchida.
 
 
+### Entendendo Deadlock
 
 
 
