@@ -58,14 +58,79 @@ catch(ArithmeticException | NullPointerException ex)
 <a name="anc3"></a>
 
 ## Lançando exceções
+- Para lançar uma exceção, além de instanciá-la, é necessário lançá-la através do throw.
+- Quando a exceção é lançada, o código para de executar abruptamente.
+- Podemos atribuir uma mensagem à exceção.
+
+```
+private static void metodo2() {
+    System.out.println("Ini do metodo2");
+    throw new ArithmeticException("Deu erro");
+}
+```
 
 <a name="anc4"></a>
 
 ## Checked e Unchecked
+- A classe Throwable implementa a interface Serializable que se relaciona com o atributo serialVersionUID, mas esse não é o nosso foco.
+
+- Ainda dentro de Throwable, encontramos o atributo detailMessage que especifica detalhes, as mensagens. Entretanto a classe Throwable é enorme, e nem tudo o que ela possui nos interessa. Por essa razão, para saber os membros dessa classe, utilizamos o atalho "Ctrl + O".
+
+- Em uma janela mais enxuta, conseguimos então visualizar os seus membros, os métodos e atributos. E então, encontramos os métodos getMessage() e printStackTrace(). Ou seja, todos os métodos do mundo de exceções foram implementados na classe mãe Throwable.
+
+
+- Para acessibilidade: A hierarquia abordada possui uma classe mãe Throwable está no topo do diagrama e, dela, é formada uma hierarquia de exceções voltada para o desenvolvedor/desenvolvedora Java.
+
+- As classes ArithmeticException e NullPointerException herdam de RuntimeException, considerando que nessa classe só existem construtores, e ela herda de Exception que também só possui construtores. Exception é a última classe que herda de Throwable.
+
+### Hierarquia dos erros.
+
+![Throwable](../img_readme/pilha-java-throwable.png)
+
+- Para acessibilidade: A hierarquia abordada contém uma classe mãe chamada Throwable. A partir dela, formam-se duas categorias: uma para exceções onde o desenvolvedor pode gerenciar e uma outra categoria voltada para erros da máquina virtual.
+
+- As exceções ArithmeticException, NullPointerException e MinhaException herdam de RuntimeException, que por sua vez, herda de Exception e Exception herda de Throwable, formando a primeira categoria de exceções. Já a segunda categoria de erros possui StackOverflowError, que herda de VirtualMachineError, que herda de Error, que herda de Throwable, formando a segunda categoria.
+
+![Erros do lado da VM](../img_readme/hierarquia-error.png)
+
+### Por que Checked e Unchecked?
+- Na categoria Unchecked, o compilador não dá muita importância. Se dermos throws ou não, ele não toma atitude, ou seja, ele não verifica — unchecked (não verificado pelo compilador).
+
+- Já a categoria Checked é verificada pelo compilador. No metodo2(), somos obrigados a colocar throws na assinatura do método, pois a exceção do tipo MinhaExcecao estende diretamente de Exception e, por isso, é verificada pelo compilador.
+
+### Hierarquia
+- Existe uma hierarquia grande de classes que representam exceções. Por exemplo, ArithmeticException é filha de RuntimeException, que herda de Exception, que por sua vez é filha da classe mais ancestral das exceções, Throwable. Conhecer bem essa hierarquia significa saber utilizar exceções em sua aplicação.
+- Throwable é a classe que precisa ser extendida para que seja possível jogar um objeto na pilha (através da palavra reservada throw)
+- É na classe Throwable que temos praticamente todo o código relacionado às exceções, inclusive getMessage() e printStackTrace(). Todo o resto da hierarquia apenas possui algumas sobrecargas de construtores para comunicar mensagens específicas
+- A hierarquia iniciada com a classe Throwable é dividida em exceções e erros. Exceções são usadas em códigos de aplicação. Erros são usados exclusivamente pela máquina virtual.
+- Classes que herdam de Error são usadas para comunicar erros na máquina virtual. Desenvolvedores de aplicação não devem criar erros que herdam de Error.
+- StackOverflowError é um erro da máquina virtual para informar que a pilha de execução não tem mais memória.
+- Exceções são separadas em duas grandes categorias: aquelas que são obrigatoriamente verificadas pelo compilador e as que não são verificadas.
+As primeiras são denominadas checked e são criadas através do pertencimento a uma hierarquia que não passe por RuntimeException.
+As segundas são as unchecked, e são criadas como descendentes de RuntimeException.
 
 <a name="anc5"></a>
 
 ## Aplicando exceções
+- À direita, temos erros que são da máquina virtual, nos quais não mexeremos, mas é importante saber que existem. À esquerda, temos as exceções.
+
+- No mundo Java, não é correto falar sobre erros com desenvolvedores, considerando que trabalhamos com exceções, e os erros são da máquina virtual.
+
+- O que nos interessa é o lado esquerdo do diagrama, referente às exceções. Vimos que existe diferença entre as exceções Checked e Unchecked, dependendo de qual classe estendemos. Se estendemos de RuntimeException, temos uma exceção do tipo Unchecked, ou seja, o compilador não toma atitude. Tendo throw ou não, ele não se importa.
+
+- Se estendermos diretamente da classe Exception, o compilador ficará de olho e nos obrigará a colocar throws na assinatura do método, para sinalizar quem chama o método, que ele é perigoso ou tratar a exceção no próprio método com o try-catch. Essa exceção é do tipo checked.
+
+- Na hora de executar o código, não tem diferença! Todos são como bombas que caem na pilha.
+
+![Hierarquia de erros](../img_readme/runtimeexception-exception-error+2.png)
+
+
+### Mas, para quê serve o Checked e o Unchecked?
+- Essa é uma pergunta difícil, pois o significado de Checked e Unchecked para o nosso código, mudou durante a vida do Java.
+
+- A polêmica das exceções está relacionada ao Checked. Hoje, existem aplicações que simplesmente não usam exceções desse tipo, e é muito comum utilizar bibliotecas que só têm exceções Unchecked, nas quais o compilador não nos obriga a tomar alguma atitude.
+
+
 
 <a name="anc6"></a>
 
