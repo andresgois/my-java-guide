@@ -112,3 +112,89 @@ Map mapaThreadSafe = new ConcurrentHashMap();COPIAR CÓDIGO
 ```
 Set conjunto = Collections.synchronizedSet(new HashSet());
 ```
+
+### Estado da Thread
+
+> Qual é o nome de estado que a thread ficou ao chamar this.wait()?
+- WAITING
+
+- O interessante é que todas as alternativas realmente representam um possível estado de uma thread. Vamos ver ainda alguns acontecendo nesse curso, mas segue uma breve explicação de cada:
+
+	- NEW Uma thread foi criada mas ainda não foi iniciada.
+	- RUNNABLE A thread está rodando dentro da JVM.
+	- BLOCKED A thread foi bloqueada pois não conseguiu pegar a chave.
+	- WAITING A thread está esperando pois foi chamado this.wait().
+	- TIMED_WAITING A thread está esperando pois foi chamado this.wait(milis).
+	- TERMINATED A thread está finalizada.
+
+> Como fazer com que uma thread A espere a execução da thread B?
+- Coloque um wait() na Thread A e um notify() na Thread B.
+
+> Em que classe estão definidos os métodos wait() e notify()?
+- Object
+
+
+### Daemon
+- Uma thread daemon é uma prestadora de serviços para outras threads. Ela só é usada enquanto as outras threads estão rodando.
+
+- Threads daemon são como prestadores de serviços para outras threads. Elas são usadas para dar apoio à tarefas e só são necessárias rodar quando as threads "normais" ainda estão sendo executadas. Uma thread daemon não impede a JVM de terminar desde que não existem mais threads principais em execução. Um exemplo de uma thread daemon é o coletor de lixo da JVM (Garbage Collector).
+
+### Prioridades
+- Vimos que podemos coordenar a execução de threads, mas quando uma thread realmente executa continuamos não sabendo. Também não sabemos, quando tem mais de uma thread esperando, qual thread realmente continua executando em caso de notificação. Tudo isso é fora do poder do nosso programa e depende do escalonador de threads.
+
+- Aí pode vir uma dúvida: Falamos rapidamente que a coleta de lixo (Garbage Collection) é executada em uma ou mais threads dentro da JVM. Quando há pouca memória disponível, será que não faz sentido dar o máximo de tempo para essa thread? No final, o trabalho dele possibilita o bom funcionamento da JVM!
+
+- A mesma pergunta podemos fazer para a nossa thread de limpeza: Será que não faz sentido dar preferência à limpeza quando tem muitos convidados, sabendo que cada convidado quer um banheiro limpo?
+
+- Faz todo sentido e podemos dar uma dica para o escalonador, definindo que há threads com uma prioridade maior do que outras. Isso é apenas uma dica e não temos garantias, mas muito provável que o escalonador respeite a dica.
+
+- Na classe Thread existe um método setPriority com justamente esse propósito. A prioridade é um valor inteiro entre 1 e 10, sendo 10 a prioridade mais alta. Basta usar o método:
+
+```
+Thread limpeza = new Thread(new TarefaLimpeza(banheiro), "Limpeza");
+limpeza.setPriority(10);
+limpeza.start();
+```
+
+- Em vez de usar um integer diretamente podemos aproveitar alguns constantes criados na classe Thread, por exemplo:
+
+```
+limpeza.setPriority(Thread.MAX_PRIORITY);
+```
+- ou
+
+```
+limpeza.setPriority(Thread.MIN_PRIORITY);
+```
+- E já vem mais uma pergunta: Qual é a prioridade padrão de uma thread? Tente descobrir (ou clique em continuar) :)
+
+
+- Até agora não usamos nada de prioridade no nosso código. Qual é a prioridade padrão de uma thread?
+
+- Na classe Thread temos um atributo público e estático que define a prioridade padrão (NORM_PRIORITY):
+
+```
+   /**
+     * The default priority that is assigned to a thread.
+     */
+    public final static int NORM_PRIORITY = 5;
+```
+- Isso significa que se não usamos nenhuma prioridade explícita, a thread vai assumir o valor 5 para a prioridade.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
