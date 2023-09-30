@@ -82,9 +82,33 @@ public class Banheiro {
 - Com esse método esperamos até cinco segundos e receberemos true caso o lock for obtido. Caso contrário, receberemos false. Como desvantagem, há o fato de o programador ter a responsabilidade de liberar o lock (unlock()).
 
 
+> Marque as afirmativas verdadeiras sobre a classe java.util.Vector?
+	- É thread-safe.
+	- É uma lista, implementa a interface java.util.List.
+	
+
+- Vimos na aula a classe java.util.Vector em ação, mas a API de Collections possuem muito mais interfaces e implementações.
+
+- Dentro dessa API existem 4 interfaces principais: java.util.Collection, java.util.List, java.util.Set e java.util.Map.
 
 
 
+![Collections](../img_readme/java-util1.png)
 
 
+- Se a classe Vector é a versão thread-safe de uma lista, será que existem para as outras interfaces implementações thread-safe? Claro que sim!
 
+- Para os mapas (Map) podemos usar a antiga classe Hashtable:
+
+- Map mapaThreadSafe = new Hashtable();COPIAR CÓDIGO
+E também temos uma implementação mais recente e performática de mapas, a classe ConcurrentHashMap:
+
+- //do pacote java.util.concurrent
+```
+Map mapaThreadSafe = new ConcurrentHashMap();COPIAR CÓDIGO
+```
+- Para o Set (conjunto) não existe uma implementação pronta na API padrão do Java mas podemos utilizar a classe Collections para construir um Set sincronizado:
+
+```
+Set conjunto = Collections.synchronizedSet(new HashSet());
+```
