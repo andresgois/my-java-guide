@@ -130,8 +130,85 @@ As segundas são as unchecked, e são criadas como descendentes de RuntimeExcept
 
 - A polêmica das exceções está relacionada ao Checked. Hoje, existem aplicações que simplesmente não usam exceções desse tipo, e é muito comum utilizar bibliotecas que só têm exceções Unchecked, nas quais o compilador não nos obriga a tomar alguma atitude.
 
+#### De que maneira as exceptions podem ajudar a melhorar o código de seu programa?
 
+- Exceções tem um nome e, caso esse nome seja expressivo, documenta o problema que está ocorrendo.
+
+- Exceções podem ter uma mensagem, ou seja, o problema e o estado das variáveis podem ser descritos na mensagem.
+
+- Exceções mudam o fluxo de execução, ou seja, evitam que o problema siga o fluxo "normal" quando algo excepcional acontece.
+
+- Exceções podem ser tratadas, ou seja, podemos voltar para a execução "normal" caso o "problema" esteja resolvido.
 
 <a name="anc6"></a>
 
 ## Finally e try with resources
+
+- Estudaremos mais alguns detalhes sobre try, catch e finally. Um try sozinho nunca é válido. Ele exige pelo menos um catch ou um finally!
+
+- O código a seguir é válido, mesmo sem o catch:
+
+```
+Conexao con = null;
+try {
+    con = new Conexao();
+    con.leDados();
+} finally {
+    con.fecha();
+}
+```
+
+```
+public class Conexao implements AutoCloseable {}
+```
+- Essa é uma interface, e a ideia das interfaces é definir um contrato e, caso você "assine" um contrato, será obrigado a implementar o método. Nesse caso, o método que somos obrigados a implementar da interface, é o método close().
+
+Então, em vez de chamar o método fecha(), chamaremos close(). Vamos apagar o fecha() e mover a linha que imprime para o novo método:
+
+```
+public class Conexao implements AutoCloseable{
+    public Conexao() {
+        System.out.println("Abrindo conexao");
+        throw new IllegalStateException();
+    }
+
+    public void leDados() {
+        System.out.println("Recebendo dados");
+        throw new IllegalStateException();
+    }
+
+    @Override
+    public void close() {
+        System.out.println("Fechando conexao");
+    }
+}
+```
+
+- O AutoCloseable exige que tenhamos o método close(), mas podemos deixar o método menos perigoso, retirando o throws Exception. Assim, simplificaremos um pouco o código e não será necessário mais um tratamento de erro para quem faz a chamada.
+
+- Além disso, vamos focar no problema da conexão, na qual não há exceção na construção do objeto.
+
+```
+public Conexao() {
+    System.out.println("Abrindo conexao");
+    //throw new IllegalStateException();
+}
+```
+
+### Veja as afirmações sobre o bloco finally:
+
+- O bloco finally é opcional quando há bloco catch.
+
+- O bloco finally sempre será executado (sem ou com exceção).
+
+- O bloco finally é tipicamente utilizado para fechar um recurso como conexão ou transação.
+
+
+#### O que está garantido quando usamos o try-with-resources?
+```
+try(Conexao con = new Conexao()) {
+     con.leDados();
+}
+```
+- O bloco finally é criado automaticamente.
+- O recurso precisa implementar o método close().
