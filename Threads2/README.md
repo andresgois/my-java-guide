@@ -127,6 +127,30 @@ pool.scheduleAtFixedRate(tarefa, 0, 60, TimeUnit.MINUTES);
 
 <a name="anc3"></a>
 
+### Capturando a entrada
+- Para capturar a entrada, vamos utilizar o nosso teclado que já temos em mãos. Ou seja, através do Scanner, vamos ler os comandos do teclado e essa entrada enviaremos para o servidor:
+
+### Lendo dados do Servidor
+- O nosso servidor também pode devolver dados para o cliente, por exemplo, a confirmação do comando ou algum resultado de um comando submetido. Para podermos receber os dados, devemos utilizar o InputStream do nosso cliente:
+
+### Usando threads no cliente
+- Agora não há muitas novidades e já vimos isso em outros exemplos. Vamos separar o recebimento e o envio dos dados, cada um em uma thread. Mãos à obra!
+
+- Poderíamos criar classes separadas para cada tarefa (Runnable), mas vamos usar um atalho, que é criar duas classes anônimas. Repare no código abaixo que já instanciamos o Runnable na criação da thread:
+
+### Juntando as Threads
+- thread main vai esperar 
+```
+threadEnviaComandos.join();
+```
+- Quando a thread main executa o método join, ela sabe que precisa esperar a execução da thread que envia os comandos . A thread main ficará esperando até a outra thread acabar.
+
+![Envio e resposta cliente servidor](../img_readme/envio_respostaserver_cliente.png)
+
+- Uma outra ideia para um projeto cliente-servidor seria usar as Threads para criar um bate papo. Novamente poderíamos ajustar o nosso projeto para tal. A diferença seria que o servidor precisasse manter todos os sockets dos clientes para espalhar as mensagens enviadas.
+
+![Bate papo](../img_readme/bate-papo.png)
+
 ## Entendendo Volatile
 
 <a name="anc4"></a>

@@ -18,7 +18,11 @@ public class ServidorTarefa {
 		//LimitandoNumeroDeThreds();
 		
 		// Número dinâmico de threads
-		NumeroDinameicoDeThreds();
+		//NumeroDinameicoDeThreds();
+		
+		
+		// Dando resposta ao cliente
+		DevolvendoRespostaAoCliente();
 		
 	}
 
@@ -60,6 +64,20 @@ public class ServidorTarefa {
 			Socket socket = servidor.accept();    
             System.out.println("Aceitando novo cliente na porta " + socket.getPort());
             DistribuirTarefas distribuirTarefas = new DistribuirTarefas(socket);
+            threadPool.execute(distribuirTarefas);
+		}
+	}
+
+	private static void DevolvendoRespostaAoCliente() throws IOException {
+		System.out.println("---- Iniciado o servidor LimitandoNumeroDeThreds-----");
+		ServerSocket servidor = new ServerSocket(12345);
+		
+		ExecutorService threadPool = Executors.newCachedThreadPool();
+	
+		while (true) {
+			Socket socket = servidor.accept();    
+            System.out.println("Aceitando novo cliente na porta " + socket.getPort());
+            DistribuirTarefasComRetornoAoCliente distribuirTarefas = new DistribuirTarefasComRetornoAoCliente(socket);
             threadPool.execute(distribuirTarefas);
 		}
 	}
