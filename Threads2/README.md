@@ -154,6 +154,126 @@ threadEnviaComandos.join();
 ## Entendendo Volatile
 
 <a name="anc4"></a>
+- Agora temos a seguinte situação: o nosso cliente envia o comando fim, que é recebido através de uma thread dedicada e chama o método parar() que por sua vez manipula o atributo estaRodando.
+
+![Exemplo1](../img_readme/Exemplo_thead.png)
+
+- Repare que o acesso ao atributo acontece em uma outra thread, e até poderia acontecer em paralelo.
+
+### Simulando o problema
+- O acesso ao atributo através de várias threads pode sim criar problemas inesperados. No nosso exemplo é um pouco difícil de mostrar o problema acontecendo, pois temos clientes remotos, mas vamos simular o problema em um novo projeto.
+
+- No Eclipse, criaremos um Java Project com o nome experimento. Nele, criaremos a classe ServidorDeTeste, no pacote br.com.alura.threads. Copiaremos a classe abaixo, que é bem parecida com nossa classe ServidorTarefas*:*
+
+```
+package br.com.alura.threads;
+
+public class ServidorDeTeste {
+
+    private boolean estaRodando = false;
+
+    public static void main(String[] args) throws InterruptedException {
+        ServidorDeTeste servidor = new ServidorDeTeste();
+        servidor.rodar();
+        servidor.alterandoAtributo();
+    }
+
+    private void rodar() {
+        new Thread(new Runnable() {
+
+            public void run() {
+                System.out.println("Servidor começando, estaRodando = " + estaRodando );
+
+                while(!estaRodando) {}
+
+                System.out.println("Servidor rodando, estaRodando = " + estaRodando );
+
+                while(estaRodando) {}
+
+                System.out.println("Servidor terminando, estaRodando = " + estaRodando );
+            }
+        }).start();
+    }
+
+    private void alterandoAtributo() throws InterruptedException {
+        Thread.sleep(5000);
+        System.out.println("Main alterando estaRodando = true");
+        estaRodando = true;
+
+        Thread.sleep(5000);
+        System.out.println("Main alterando estaRodando = false");
+        estaRodando = false;        
+    }
+}
+```
+
+- Esperado ao rodar a classe
+```
+Servidor começando, estaRodando = false
+Main alterando estaRodando = true
+Servidor rodando, estaRodando = true
+Main alterando estaRodando = false
+Servidor terminando, estaRodando = false
+```
+- Real acontecido
+```
+Servidor começando, estaRodando = false
+Main alterando estaRodando = true
+Main alterando estaRodando = false
+```
+- Por quê?
+### Entendendo o volatile
+- O problema é que uma thread pode cachear variáveis e é muito provável que isso acontecerá! Cada thread é mapeada para uma thread nativa do sistema operacional, e esses caches nativos vão aproveitar o cache da CPU. Enquanto o nosso atributo fica na memória principal, a thread o guarda no cache da CPU!
+
+
+
+![Exemplo2](../img_readme/cache1.png)
+
+- Então, como podemos dizer que não queremos usar esse cache? Isso é muito fácil e o Java possui uma palavra chave para tal: volatile.
+
+- O nosso atributo será volatile, que significa que cada thread deve acessar diretamente a memória principal.
+```
+private volatile boolean estaRodando = false;
+```
+
+![Exemplo3](../img_readme/cache2.png)
+
+### Usando variáveis atômicas
+- Há uma alternativa ao uso da palavra chave volatile. Em vez de usar volatile diretamente, podemos utilizar classes do pacote java.util.concurrent.atomic. Nesse pacote encontraremos uma classe com o nome AtomicBoolean que garante que todas as threads usam essa variável de maneira atômica, sem cache.
+
+- Vamos voltar ao nosso projeto real, servidor-tarefas, na classe ServidorTarefas, e definir a variável estaRodando como o tipo AtomicBoolean.
+```
+private AtomicBoolean estaRodando;
+```
+- E no construtor:
+```
+public ServidorTarefas() throws IOException {
+    System.out.println("---- Iniciando Servidor ----");
+    this.servidor = new ServerSocket(12345);
+    this.threadPool = Executors.newCachedThreadPool();
+    this.estaRodando = new AtomicBoolean(true); // devemos dar new em AtomicBoolean
+}
+```
+- Para recuperar o valor, devemos chamar um método get. Aplicaremos isso no nosso laço while do método rodar() da classe ServidorTarefas:
+
+```
+while (this.estaRodando.get()) {
+```
+
+- E para alterar o valor, usamos o método set dentro do método parar():
+
+```
+public void parar() throws IOException {
+    this.estaRodando.set(false);
+    this.threadPool.shutdown();
+    this.servidor.close();
+}
+```
+
+- Vimos na aula a classe AtomicBoolean para não precisar usar volatile ou syncronized ao acessar a uma variável. A classe faz parte do pacote java.util.concurrent.atomic onde podemos encontrar outras classes, [como por exemplo AtomicInteger e AtomicLong.](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/atomic/package-summary.html)
+
+- No tutorial da Oracle é apresentado um pequeno exemplo como seria uma classe usando syncronized comparado com AtomicInteger. 
+[Vale à pena conferir:](https://docs.oracle.com/javase/tutorial/essential/concurrency/atomicvars.html)
 
 
 ## Distribuindo comandos e tratamento de erro
