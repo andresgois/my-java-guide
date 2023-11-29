@@ -411,3 +411,7 @@ Payment = amount * (1 + interestRate / 100)N
 	
 
 - [Interfaces](./Trabalhando_com_arquivos/Interfaces.md)
+
+## CAPÍTULO 19 - Generics, Set, Map
+
+- [Generics](./19_Generics/README.md)
