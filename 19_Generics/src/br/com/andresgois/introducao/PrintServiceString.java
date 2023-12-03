@@ -1,18 +1,18 @@
-package br.com.andresgois.service;
+package br.com.andresgois.introducao;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrintServiceGeneric<T> {
+public class PrintServiceString<T> {
     
 
-    private List<String> list = new ArrayList<>();
+    private List<T> list = new ArrayList<>();
 
-    public void addValue(String value) {
+    public void addValue(T value) {
         list.add(value);
     }
 
-    public String first() {
+    public T first() {
         if (list.isEmpty()) {
             throw new IllegalStateException("List is empty");
         }

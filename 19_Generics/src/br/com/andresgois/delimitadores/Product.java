@@ -1,4 +1,4 @@
-package br.com.andresgois.model;
+package br.com.andresgois.delimitadores;
 
 public class Product implements Comparable<Product> {
     

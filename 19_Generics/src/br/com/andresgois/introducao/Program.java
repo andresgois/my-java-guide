@@ -1,4 +1,4 @@
-package br.com.andresgois;
+package br.com.andresgois.introducao;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,10 +8,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-import br.com.andresgois.model.Product;
-import br.com.andresgois.service.CalculationService;
-import br.com.andresgois.service.PrintService;
-import br.com.andresgois.service.PrintServiceString;
+import br.com.andresgois.delimitadores.CalculationService;
+import br.com.andresgois.delimitadores.Product;
 
 public class Program {
     
