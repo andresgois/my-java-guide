@@ -31,5 +31,7 @@ public class Product {
 		return "Product [name=" + name + ", price=" + price + "]";
 	}
 	
-	
+	public static boolean staticProductPredicate(Product p) {
+		return p.getPrice() > 50;
+	}
 }
